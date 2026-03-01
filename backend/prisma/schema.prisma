@@ -1,0 +1,185 @@
+// ================================================================
+// Prisma Schema — SchoolSpace Backend
+// Provider: PostgreSQL (Neon)
+// ================================================================
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// -----------------------------------------------------------------
+// Models
+// -----------------------------------------------------------------
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  role      String   // "ADMIN" | "TEACHER" | "STUDENT"
+  name      String
+  phone     String?
+  avatar    String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  studentProfile Student?
+  teacherProfile Teacher?
+
+  messagesSent     Message[] @relation("Sender")
+  messagesReceived Message[] @relation("Receiver")
+}
+
+model Class {
+  id       String    @id @default(uuid())
+  name     String
+  sections Section[]
+}
+
+model Section {
+  id      String @id @default(uuid())
+  name    String
+  classId String
+  class   Class  @relation(fields: [classId], references: [id])
+
+  students Student[]
+  subjects Subject[]
+}
+
+model Subject {
+  id        String  @id @default(uuid())
+  name      String
+  code      String
+  sectionId String
+  section   Section @relation(fields: [sectionId], references: [id])
+
+  teacherId String?
+  teacher   Teacher? @relation(fields: [teacherId], references: [id], onDelete: SetNull)
+
+  marks       Mark[]
+  assignments Assignment[]
+  attendances Attendance[]
+}
+
+model GalleryItem {
+  id          String   @id @default(uuid())
+  title       String
+  imageUrl    String
+  description String?
+  createdAt   DateTime @default(now())
+}
+
+model Student {
+  id     String @id @default(cuid())
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  rollNo    Int
+  sectionId String
+  section   Section @relation(fields: [sectionId], references: [id])
+
+  marks       Mark[]
+  attendances Attendance[]
+  submissions Submission[]
+}
+
+model Teacher {
+  id     String @id @default(cuid())
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  specialization String?
+  subjects       Subject[]
+}
+
+model Attendance {
+  id     String   @id @default(uuid())
+  date   DateTime
+  status String   // "PRESENT" | "ABSENT" | "LATE"
+
+  studentId String
+  student   Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  subjectId String?
+  subject   Subject? @relation(fields: [subjectId], references: [id])
+
+  createdAt DateTime @default(now())
+
+  @@unique([studentId, subjectId, date])
+}
+
+model Mark {
+  id         String @id @default(uuid())
+  examType   String // "CLASS_TEST" | "MID" | "FINAL"
+  score      Float
+  totalScore Float
+
+  studentId String
+  student   Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  subjectId String
+  subject   Subject @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+}
+
+model Assignment {
+  id          String    @id @default(uuid())
+  title       String
+  description String?
+  dueDate     DateTime
+  fileUrl     String?
+
+  subjectId String
+  subject   Subject @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+
+  submissions Submission[]
+}
+
+model Submission {
+  id          String   @id @default(uuid())
+  fileUrl     String?
+  submittedAt DateTime @default(now())
+
+  assignmentId String
+  assignment   Assignment @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
+
+  studentId String
+  student   Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@unique([assignmentId, studentId])
+}
+
+model Notice {
+  id        String   @id @default(uuid())
+  title     String
+  content   String
+  type      String   // "GENERAL" | "ACADEMIC" | "EMERGENCY"
+  createdAt DateTime @default(now())
+}
+
+model Message {
+  id        String   @id @default(uuid())
+  content   String
+  createdAt DateTime @default(now())
+  isRead    Boolean  @default(false)
+
+  senderId String
+  sender   User   @relation("Sender", fields: [senderId], references: [id])
+
+  receiverId String
+  receiver   User   @relation("Receiver", fields: [receiverId], references: [id])
+}
+
+model ContactRequest {
+  id        String   @id @default(uuid())
+  name      String
+  email     String
+  message   String
+  createdAt DateTime @default(now())
+  isRead    Boolean  @default(false)
+}

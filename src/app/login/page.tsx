@@ -4,9 +4,57 @@ import { motion } from "framer-motion";
 import { GraduationCap, ArrowRight, Lock, User, Mail } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
     const [role, setRole] = useState<"student" | "teacher" | "admin">("student");
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
+    const router = useRouter();
+
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        setIsLoading(true);
+        setError(null);
+
+        const formData = new FormData(e.currentTarget);
+        const email = formData.get("email") as string;
+        const password = formData.get("password") as string;
+
+        // Use base URL from environment or default to local for preview
+        const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+
+        try {
+            const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email, password }),
+            });
+
+            const data = await response.json();
+
+            if (!data.success) {
+                setError(data.error ?? "Login failed. Please check your credentials.");
+                return;
+            }
+
+            // Store token
+            localStorage.setItem("token", data.token);
+            localStorage.setItem("user", JSON.stringify(data.user));
+
+            // Redirect based on role
+            const userRole = data.user.role;
+            if (userRole === "ADMIN") router.push("/admin");
+            else if (userRole === "TEACHER") router.push("/teacher");
+            else if (userRole === "STUDENT") router.push("/student");
+
+        } catch (err) {
+            setError("Network error. Make sure the backend server is running.");
+            console.error(err);
+        } finally {
+            setIsLoading(false);
+        }
+    };
 
     return (
         <div className="min-h-[calc(100vh-80px)] flex items-center justify-center py-20 px-4 relative overflow-hidden">
@@ -42,8 +90,15 @@ export default function LoginPage() {
                     ))}
                 </div>
 
+                {/* Error Alert */}
+                {error && (
+                    <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} className="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm font-medium">
+                        {error}
+                    </motion.div>
+                )}
+
                 {/* Login Form */}
-                <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
+                <form className="space-y-5" onSubmit={handleSubmit}>
                     <div>
                         <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">
                             {role === "student" ? "Student ID / Email" : "Email Address"}
@@ -53,9 +108,11 @@ export default function LoginPage() {
                                 {role === "student" ? <User className="h-5 w-5 text-gray-500" /> : <Mail className="h-5 w-5 text-gray-500" />}
                             </div>
                             <input
+                                name="email"
+                                required
                                 type={role === "student" ? "text" : "email"}
                                 className="w-full bg-black/40 border border-white/5 rounded-xl py-3 pl-11 pr-4 text-white placeholder:text-gray-600 focus:outline-none focus:ring-2 focus:ring-brand-purple/50 focus:border-brand-purple/50 transition-all font-medium"
-                                placeholder={role === "student" ? "Enter your ID" : "admin@school.com"}
+                                placeholder={role === "student" ? "Enter your ID or Email" : "admin@school.com"}
                             />
                         </div>
                     </div>
@@ -70,6 +127,8 @@ export default function LoginPage() {
                                 <Lock className="h-5 w-5 text-gray-500" />
                             </div>
                             <input
+                                name="password"
+                                required
                                 type="password"
                                 className="w-full bg-black/40 border border-white/5 rounded-xl py-3 pl-11 pr-4 text-white placeholder:text-gray-600 focus:outline-none focus:ring-2 focus:ring-brand-purple/50 focus:border-brand-purple/50 transition-all font-medium"
                                 placeholder="••••••••"
@@ -77,9 +136,13 @@ export default function LoginPage() {
                         </div>
                     </div>
 
-                    <button className="w-full py-4 rounded-xl text-base font-bold text-white bg-gradient-to-r from-brand-pink to-brand-purple hover:neon-glow transition-all duration-300 flex items-center justify-center gap-2 mt-4 group">
-                        Sign In to Portal
-                        <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                    <button
+                        type="submit"
+                        disabled={isLoading}
+                        className="w-full py-4 rounded-xl text-base font-bold text-white bg-gradient-to-r from-brand-pink to-brand-purple hover:neon-glow transition-all duration-300 flex items-center justify-center gap-2 mt-4 group disabled:opacity-50"
+                    >
+                        {isLoading ? "Signing In..." : "Sign In to Portal"}
+                        {!isLoading && <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />}
                     </button>
                 </form>
 
@@ -91,3 +154,4 @@ export default function LoginPage() {
         </div>
     );
 }
+

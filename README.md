@@ -1,36 +1,93 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🎓 SchoolSpace - Comprehensive School Management System
+একটি আধুনিক, dark-themed স্কুল ম্যানেজমেন্ট সিস্টেম। 
 
-## Getting Started
+---
 
-First, run the development server:
+## 🏗️ Architecture & Deployment Overview
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+এই প্রজেক্টটি **Frontend (Vercel)**, **Backend (Render)**, এবং **Database (Neon)** এই তিনটি লেয়ারে বিভক্ত করে ডিজাইন করা হয়েছে যাতে এটি স্কেলেবল এবং প্রডাকশন-রেডি থাকে।
+
+| Layer | Hosting | Technology |
+|-------|---------|------------|
+| **Frontend** | **Vercel** | Next.js 16 (App Router), React 19, TailwindCSS v4, Framer Motion |
+| **Backend** | **Render** | Express.js, Node.js, TypeScript |
+| **Database** | **Neon** | PostgreSQL, Prisma ORM |
+
+---
+
+## 📁 প্রজেক্ট স্ট্রাকচার
+
+```
+schoolproject/
+│
+├── 📁 frontend/                    ← UI Components & Premium Pages design
+│   └── styles/globals.css          ← Gradient tokens & Glassmorphism styles
+│
+├── 📁 backend/                     ← Express.js API Server (Render-Ready)
+│   ├── src/
+│   │   ├── routes/                 ← Auth, Students, Teachers, etc.
+│   │   ├── server.ts               ← Main Express Entry Point
+│   │   └── seed.ts                 ← DB Seeder script
+│   └── prisma/
+│       └── schema.prisma           ← Neon/PostgreSQL models
+│
+├── 📁 src/                         ← Next.js App Router (Frontend Deployment)
+│   └── app/                        ← Live pages for Vercel deployment
+│       ├── page.tsx                ← Home Page
+│       ├── login/page.tsx          ← Auth Logic & Login
+│       └── [roles]/                ← Dashboards (Admin, Student, Teacher)
+│
+└── package.json                    ← Next.js frontend dependencies
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🚀 Deployment Instructions
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### ১. Database (Neon.tech)
+- Neon.tech-এ একটি প্রজেক্ট খুলুন এবং `DATABASE_URL` কপি করুন।
+- `backend/prisma/schema.prisma` তে provider "postgresql" আছে কিনা নিশ্চিত করুন।
 
-## Learn More
+### ২. Backend (Render.com)
+- Render-এ একটি **Web Service** তৈরি করুন এবং `backend/` ফোল্ডারটি রুট হিসেবে দিন।
+- **Build Command**: `npm install && npm run build && npm run db:generate`
+- **Start Command**: `npm run start`
+- **Env Vars**: `DATABASE_URL`, `JWT_SECRET`, `FRONTEND_URL` দিন।
 
-To learn more about Next.js, take a look at the following resources:
+### ৩. Frontend (Vercel.com)
+- Vercel-এ রুট ডিরেক্টরি `schoolproject/` কানেক্ট করুন।
+- **Build Command**: `next build`
+- **Start Command**: `next start`
+- **Env Vars**: 
+  - `NEXT_PUBLIC_API_URL`: Render-এ হোস্ট করা আপনার API-র URL দিন।
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🛠️ Local Development
 
-## Deploy on Vercel
+১. **Root Folder**-এ Dependencies ইন্সটল করুন:
+   ```bash
+   npm install
+   npm run dev # Next.js চলবে http://localhost:3000 এ
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+২. **Backend Folder**-এ আলাদা টার্মিনালে:
+   ```bash
+   cd backend
+   npm install
+   npm run dev # API চলবে http://localhost:5000 এ
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## 🔑 Demo Access
+
+| Role | Email | Password |
+|------|-------|----------|
+| 🔴 Admin | admin@school.com | password123 |
+| 🟡 Teacher | rafiqul@school.com | password123 |
+| 🟢 Student | john@school.com | password123 |
+
+---
+
+*Made with ❤️ by almahmud_17 — Designed for Excellence.*

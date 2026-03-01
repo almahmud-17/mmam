@@ -83,7 +83,7 @@ export default function StudentDashboardHome() {
                 {/* Upcoming Classes */}
                 <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5, delay: 0.4 }} className="glass rounded-3xl p-6 md:p-8 border border-white/5">
                     <div className="flex items-center justify-between mb-6">
-                        <h2 className="text-xl font-heading font-bold text-white">Today's Schedule</h2>
+                        <h2 className="text-xl font-heading font-bold text-white">Today&apos;s Schedule</h2>
                         <span className="text-sm font-semibold text-gray-400">Wednesday</span>
                     </div>
                     <div className="space-y-4 relative before:absolute before:inset-y-0 before:left-3 before:w-px before:bg-white/10">

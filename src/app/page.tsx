@@ -35,7 +35,7 @@ export default function Home() {
           >
             <motion.div variants={fadeIn} className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-6 border-brand-pink/30">
               <span className="w-2 h-2 rounded-full bg-brand-pink animate-pulse" />
-              <span className="text-sm font-medium text-text-light">Premium School Management System 2026</span>
+              <span className="text-sm font-medium text-text-light">A almahmud_17 School Management System project</span>
             </motion.div>
 
             <motion.h1 variants={fadeIn} className="text-5xl md:text-7xl font-heading font-extrabold text-white leading-[1.1] mb-6">
@@ -185,7 +185,7 @@ export default function Home() {
                     <Users className="w-16 h-16 text-white/10" />
                   </div>
                 </div>
-                <h4 className="text-xl font-bold text-white font-heading">Principal Name</h4>
+                <h4 className="text-xl font-bold text-white font-heading">A H M TAZNORUL ISLAM</h4>
                 <p className="text-brand-purple text-sm font-medium">Head of Institution</p>
               </motion.div>
             ))}

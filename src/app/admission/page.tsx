@@ -22,7 +22,7 @@ export default function AdmissionPage() {
                         Student <span className="text-gradient">Admission</span>
                     </h1>
                     <p className="text-gray-400 text-lg max-w-2xl mx-auto font-bangla">
-                        নতুন শিক্ষাবর্ষে ভর্তির জন্য নিচের ফর্মটি সঠিকভাবে পূরণ করুন। আমাদের এডমিশন টিম আপনার সাথে দ্রুত যোগাযোগ করবে।
+                        মহিষাবান এম আলিম মাদরাসায় নতুন শিক্ষাবর্ষে ভর্তির জন্য নিচের ফর্মটি সঠিকভাবে পূরণ করুন।
                     </p>
                 </motion.div>
 

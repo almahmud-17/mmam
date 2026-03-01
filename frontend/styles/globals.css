@@ -1,0 +1,75 @@
+/* ================================================================
+   GLOBAL STYLES - SchoolSpace Frontend
+   Design System: Dark mode, glassmorphism, neon accents
+   ================================================================ */
+
+@import "tailwindcss";
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-brand-pink: var(--brand-pink);
+  --color-brand-purple: var(--brand-purple);
+  --color-text-light: var(--text-light);
+  --font-sans: var(--font-inter);
+  --font-heading: var(--font-poppins);
+  --font-bangla: var(--font-noto-bengali);
+}
+
+/* ─── Color Tokens ────────────────────────────────────────────── */
+:root {
+  --background:  #0B0B0D;
+  --foreground:  #EEEEEE;
+  --card:        #1A1A1D;
+  --brand-pink:  #FF2D7D;
+  --brand-purple: #A855F7;
+  --text-light:  #CCCCCC;
+}
+
+/* ─── Base Styles ─────────────────────────────────────────────── */
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), sans-serif;
+  overflow-x: hidden;
+}
+
+/* ─── Utility Classes ─────────────────────────────────────────── */
+@utility glass {
+  background: rgba(26, 26, 29, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+@utility neon-glow {
+  box-shadow: 0 0 15px rgba(255, 45, 125, 0.4), 0 0 30px rgba(168, 85, 247, 0.2);
+  transition: box-shadow 0.3s ease-in-out;
+
+  &:hover {
+    box-shadow: 0 0 25px rgba(255, 45, 125, 0.6), 0 0 45px rgba(168, 85, 247, 0.4);
+  }
+}
+
+@utility text-gradient {
+  background: linear-gradient(to right, var(--brand-pink), var(--brand-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─── Custom Scrollbar ────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(168, 85, 247, 0.4);
+  border-radius: 99px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 45, 125, 0.6);
+}

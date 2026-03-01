@@ -9,7 +9,7 @@ export default function Footer() {
 
                     <div className="col-span-1 md:col-span-2">
                         <span className="text-2xl font-heading font-extrabold text-white tracking-tight">
-                            School Of <span className="text-gradient">Mahmud</span>
+                            Mohishaban M Alim <span className="text-gradient">Madrasah</span>
                         </span>
                         <p className="mt-4 text-sm text-gray-400 max-w-sm">
                             Empowering the next generation with modern, premium educational management solutions. Creating a brighter future, today.
@@ -38,13 +38,13 @@ export default function Footer() {
                 </div>
 
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 pt-8 border-t border-white/5 text-center text-xs text-gray-500">
-                    <p>© {new Date().getFullYear()} SchoolSpace. All rights reserved.</p>
+                    <p>© {new Date().getFullYear()} Mohishaban M Alim Madrasah. All rights reserved.</p>
                 </div>
             </footer>
 
             {/* Floating WhatsApp Bubble */}
             <a
-                href="https://wa.me/1234567890"
+                href="https://wa.me/01819133564"
                 target="_blank"
                 rel="noreferrer"
                 className="fixed bottom-6 right-6 p-4 rounded-full bg-green-500 text-white shadow-lg hover:shadow-green-500/50 hover:-translate-y-1 transition-all duration-300 z-50 group"

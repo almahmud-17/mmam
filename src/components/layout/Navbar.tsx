@@ -13,7 +13,7 @@ export default function Navbar() {
                             <GraduationCap className="w-6 h-6 text-white" />
                         </div>
                         <span className="text-2xl font-heading font-extrabold text-white tracking-tight">
-                            School<span className="text-gradient">Space</span>
+                            Mohishaban M Alim <span className="text-gradient">Madrasah</span>
                         </span>
                     </Link>
 
@@ -21,7 +21,7 @@ export default function Navbar() {
                     <div className="hidden md:flex items-center gap-8">
                         <Link href="/" className="text-sm font-medium text-text-light/80 hover:text-white transition-colors">Home</Link>
                         <Link href="/about" className="text-sm font-medium text-text-light/80 hover:text-white transition-colors">About</Link>
-                        <Link href="/teachers" className="text-sm font-medium text-text-light/80 hover:text-white transition-colors">Teachers</Link>
+                        <Link href="/notices" className="text-sm font-medium text-text-light/80 hover:text-white transition-colors">Notices</Link>
                         <Link href="/gallery" className="text-sm font-medium text-text-light/80 hover:text-white transition-colors">Gallery</Link>
                         <Link href="/contact" className="text-sm font-medium text-text-light/80 hover:text-white transition-colors">Contact</Link>
                     </div>
