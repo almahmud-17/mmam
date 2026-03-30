@@ -24,7 +24,7 @@ export default function StudentDashboardHome() {
             >
                 <div className="absolute top-0 right-0 w-64 h-64 bg-brand-pink/20 rounded-full blur-[80px] -z-10" />
                 <h1 className="text-3xl md:text-4xl font-heading font-bold text-foreground dark:text-white mb-2">
-                    Welcome back, <span className="text-gradient">John!</span> 👋
+                    Welcome back, <span className="text-gradient">Al Mahmud!</span> 👋
                 </h1>
                 <p className="text-foreground/70 dark:text-gray-300 font-medium">Class 10 - Section A | Roll: 15</p>
             </motion.div>

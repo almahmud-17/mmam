@@ -368,14 +368,14 @@ export default function AdminTeachersPage() {
                                             <label className="text-xs font-semibold text-foreground/40 uppercase tracking-widest pl-1">Name</label>
                                             <div className="relative">
                                                 <User className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-foreground/30" />
-                                                <input name="name" required placeholder="John Doe" className="w-full bg-background/5 dark:bg-foreground/5 dark:bg-background/40 border border-border rounded-xl py-3 pl-11 text-foreground text-sm focus:outline-none focus:border-brand-purple transition-all" />
+                                                <input name="name" required placeholder="Umme Sabera" className="w-full bg-background/5 dark:bg-foreground/5 dark:bg-background/40 border border-border rounded-xl py-3 pl-11 text-foreground text-sm focus:outline-none focus:border-brand-purple transition-all" />
                                             </div>
                                         </div>
                                         <div className="space-y-2">
                                             <label className="text-xs font-semibold text-foreground/40 uppercase tracking-widest pl-1">Email</label>
                                             <div className="relative">
                                                 <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-foreground/30" />
-                                                <input name="email" type="email" required placeholder="name@school.com" className="w-full bg-background/5 dark:bg-foreground/5 dark:bg-background/40 border border-border rounded-xl py-3 pl-11 text-foreground text-sm focus:outline-none focus:border-brand-purple transition-all" />
+                                                <input name="email" type="email" required placeholder="umme@school.com" className="w-full bg-background/5 dark:bg-foreground/5 dark:bg-background/40 border border-border rounded-xl py-3 pl-11 text-foreground text-sm focus:outline-none focus:border-brand-purple transition-all" />
                                             </div>
                                         </div>
                                     </div>

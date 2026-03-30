@@ -38,7 +38,7 @@ export default function AdmissionPage() {
                                 <label className="block text-xs font-semibold text-foreground/60 dark:text-gray-400 uppercase tracking-wider mb-2">First Name</label>
                                 <div className="relative">
                                     <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none"><User className="h-5 w-5 text-foreground/50 dark:text-gray-500" /></div>
-                                    <input type="text" className="w-full bg-foreground/5 dark:bg-background/40 border border-foreground/10 dark:border-white/5 rounded-xl py-3 pl-11 pr-4 text-foreground dark:text-white focus:ring-2 focus:ring-brand-purple/50 transition-all" placeholder="John" />
+                                    <input type="text" className="w-full bg-foreground/5 dark:bg-background/40 border border-foreground/10 dark:border-white/5 rounded-xl py-3 pl-11 pr-4 text-foreground dark:text-white focus:ring-2 focus:ring-brand-purple/50 transition-all" placeholder="Al" />
                                 </div>
                             </div>
 
@@ -47,7 +47,7 @@ export default function AdmissionPage() {
                                 <label className="block text-xs font-semibold text-foreground/60 dark:text-gray-400 uppercase tracking-wider mb-2">Last Name</label>
                                 <div className="relative">
                                     <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none"><User className="h-5 w-5 text-foreground/50 dark:text-gray-500" /></div>
-                                    <input type="text" className="w-full bg-foreground/5 dark:bg-background/40 border border-foreground/10 dark:border-white/5 rounded-xl py-3 pl-11 pr-4 text-foreground dark:text-white focus:ring-2 focus:ring-brand-purple/50 transition-all" placeholder="Doe" />
+                                    <input type="text" className="w-full bg-foreground/5 dark:bg-background/40 border border-foreground/10 dark:border-white/5 rounded-xl py-3 pl-11 pr-4 text-foreground dark:text-white focus:ring-2 focus:ring-brand-purple/50 transition-all" placeholder="Mahmud" />
                                 </div>
                             </div>
 
@@ -56,7 +56,7 @@ export default function AdmissionPage() {
                                 <label className="block text-xs font-semibold text-foreground/60 dark:text-gray-400 uppercase tracking-wider mb-2">Email Address</label>
                                 <div className="relative">
                                     <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none"><Mail className="h-5 w-5 text-foreground/50 dark:text-gray-500" /></div>
-                                    <input type="email" className="w-full bg-foreground/5 dark:bg-background/40 border border-foreground/10 dark:border-white/5 rounded-xl py-3 pl-11 pr-4 text-foreground dark:text-white focus:ring-2 focus:ring-brand-purple/50 transition-all" placeholder="john@example.com" />
+                                    <input type="email" className="w-full bg-foreground/5 dark:bg-background/40 border border-foreground/10 dark:border-white/5 rounded-xl py-3 pl-11 pr-4 text-foreground dark:text-white focus:ring-2 focus:ring-brand-purple/50 transition-all" placeholder="almahmud@example.com" />
                                 </div>
                             </div>
 
