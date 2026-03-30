@@ -127,11 +127,12 @@ export default function Navbar() {
                             </div>
 
                             {/* Theme & Auth */}
-                            <div className="hidden md:flex items-center gap-4 shrink-0 pl-4 border-l border-foreground/10 ml-2">
+                            <div className="flex items-center gap-2 md:gap-4 shrink-0 pl-3 md:pl-4 border-l border-foreground/10 ml-2">
                                 <ThemeToggle />
-                                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                                    <Link href="/login" className="flex items-center gap-2 text-sm font-bold font-bangla text-foreground/80 hover:text-brand-pink transition-colors duration-300 ease-out">
-                                        <LogIn className="w-4 h-4" /> লগইন
+                                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="hidden xs:block">
+                                    <Link href="/login" className="flex items-center gap-1.5 md:gap-2 text-sm font-bold font-bangla text-foreground/80 hover:text-brand-pink transition-colors duration-300 ease-out whitespace-nowrap">
+                                        <LogIn className="w-4 h-4 md:w-5 md:h-5" /> 
+                                        <span className="hidden sm:inline">লগইন</span>
                                     </Link>
                                 </motion.div>
                             </div>
