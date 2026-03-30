@@ -33,7 +33,7 @@ export default function TeacherDashboard() {
                 <div className="absolute top-0 left-0 w-64 h-64 bg-brand-purple/20 rounded-full blur-[80px] -z-10" />
                 <div>
                     <h1 className="text-3xl md:text-4xl font-heading font-bold text-white mb-2">
-                        Welcome, <span className="text-gradient">Rafiqul!</span> 🍎
+                        Welcome, <span className="text-gradient">Taznurl</span> 🍎
                     </h1>
                     <p className="text-gray-300 font-medium">Senior Mathematics Teacher | Class 10 Coordinator</p>
                 </div>
@@ -94,8 +94,8 @@ export default function TeacherDashboard() {
                                     <p className="text-xs text-gray-400 mt-0.5">{cls.section}</p>
                                 </div>
                                 <span className={`inline-flex items-center px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${cls.status === "completed" ? "bg-gray-500/20 text-gray-400" :
-                                        cls.status === "ongoing" ? "bg-green-500/20 text-green-400 animate-pulse" :
-                                            "bg-brand-purple/20 text-brand-purple"
+                                    cls.status === "ongoing" ? "bg-green-500/20 text-green-400 animate-pulse" :
+                                        "bg-brand-purple/20 text-brand-purple"
                                     }`}>
                                     {cls.status}
                                 </span>
