@@ -112,7 +112,11 @@ export default function LoginPage() {
                                 required
                                 type={role === "student" ? "text" : "email"}
                                 className="w-full bg-foreground/5 dark:bg-background/40 border border-foreground/10 dark:border-white/5 rounded-xl py-3 pl-11 pr-4 text-foreground dark:text-white placeholder:text-gray-600 focus:outline-none focus:ring-2 focus:ring-brand-purple/50 focus:border-brand-purple/50 transition-all font-medium"
-                                placeholder={role === "student" ? "Enter your ID or Email" : "admin@school.com"}
+                                placeholder={
+                                    role === "student" ? "mahmud@student.com" :
+                                        role === "teacher" ? "taznurul@teacher.com" :
+                                            "admin@school.com"
+                                }
                             />
                         </div>
                     </div>
