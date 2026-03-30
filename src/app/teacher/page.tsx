@@ -53,7 +53,7 @@ export default function TeacherDashboardHome() {
                         Mohishaban M Alim Madrasah
                     </p>
                     <h1 className="text-3xl md:text-4xl font-heading font-bold text-foreground dark:text-white mb-2">
-                        Welcome, <span className="text-gradient">Rafiqul!</span> 🍎
+                        Welcome, <span className="text-gradient">Taznurul!</span> 🍎
                     </h1>
                     <p className="text-foreground/70 dark:text-gray-300 font-medium">Senior Mathematics Teacher | Class 10 Coordinator</p>
                 </div>

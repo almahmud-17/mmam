@@ -33,7 +33,7 @@ export default function TeacherDashboard() {
                 <div className="absolute top-0 left-0 w-64 h-64 bg-brand-purple/20 rounded-full blur-[80px] -z-10" />
                 <div>
                     <h1 className="text-3xl md:text-4xl font-heading font-bold text-white mb-2">
-                        Welcome, <span className="text-gradient">Taznurl</span> 🍎
+                        Welcome, <span className="text-gradient">Taznurul!</span> 🍎
                     </h1>
                     <p className="text-gray-300 font-medium">Senior Mathematics Teacher | Class 10 Coordinator</p>
                 </div>
