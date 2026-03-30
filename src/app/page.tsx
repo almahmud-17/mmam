@@ -475,12 +475,12 @@ function LeadershipSection({ fadeIn }: LeadershipSectionProps) {
 
 function PreFooterSection() {
   const importantLinks = [
-    { title: "বাংলাদেশ মাদ্রাসা শিক্ষা বোর্ড", url: "http://www.bmeb.gov.bd" },
-    { title: "বাংলাদেশ শিক্ষাতথ্য ও পরিসংখ্যান ব্যুরো (ব্যানবেইস)", url: "http://www.banbeis.gov.bd" },
+    { title: "বাংলাদেশ মাদ্রাসা শিক্ষা বোর্ড", url: "https://bmeb.gov.bd" },
+    { title: "বাংলাদেশ শিক্ষাতথ্য ও পরিসংখ্যান ব্যুরো (ব্যানবেইস)", url: "https://banbeis.gov.bd" },
     { title: "ইসলামি বিশ্ববিদ্যালয়", url: "https://iu.ac.bd" },
-    { title: "ইসলামি আরবি বিশ্ববিদ্যালয়", url: "http://www.iau.edu.bd" },
-    { title: "মাদ্রাসা শিক্ষা অধিদপ্তর", url: "http://www.dme.gov.bd" },
-    { title: "শিক্ষা মন্ত্রণালয়", url: "http://www.moedu.gov.bd" },
+    { title: "ইসলামি আরবি বিশ্ববিদ্যালয়", url: "https://iau.edu.bd" },
+    { title: "মাদ্রাসা শিক্ষা অধিদপ্তর", url: "https://dme.gov.bd" },
+    { title: "শিক্ষা মন্ত্রণালয়", url: "https://moedu.gov.bd" },
     { title: "শিক্ষক বাতায়ন", url: "https://www.teachers.gov.bd" },
   ];
 
