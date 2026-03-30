@@ -15,67 +15,67 @@ export default function AdmissionPage() {
                     initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}
                     className="text-center mb-16"
                 >
-                    <div className="inline-flex p-4 rounded-2xl bg-white/5 border border-white/10 mb-6">
+                    <div className="inline-flex p-4 rounded-2xl bg-foreground/5 dark:bg-white/5 border border-foreground/15 dark:border-white/10 mb-6">
                         <GraduationCap className="w-10 h-10 text-brand-pink" />
                     </div>
-                    <h1 className="text-4xl md:text-5xl font-heading font-extrabold text-white mb-4">
+                    <h1 className="text-4xl md:text-5xl font-heading font-extrabold text-foreground dark:text-white mb-4">
                         Student <span className="text-gradient">Admission</span>
                     </h1>
-                    <p className="text-gray-400 text-lg max-w-2xl mx-auto font-bangla">
+                    <p className="text-foreground/60 dark:text-gray-400 text-lg max-w-2xl mx-auto font-bangla">
                         মহিষাবান এম আলিম মাদরাসায় নতুন শিক্ষাবর্ষে ভর্তির জন্য নিচের ফর্মটি সঠিকভাবে পূরণ করুন।
                     </p>
                 </motion.div>
 
                 <motion.div
                     initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }}
-                    className="glass p-8 md:p-12 rounded-3xl border border-white/10 relative"
+                    className="glass p-8 md:p-12 rounded-3xl border border-foreground/15 dark:border-white/10 relative"
                 >
                     <form className="space-y-8" onSubmit={(e) => e.preventDefault()}>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             {/* First Name */}
                             <div>
-                                <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">First Name</label>
+                                <label className="block text-xs font-semibold text-foreground/60 dark:text-gray-400 uppercase tracking-wider mb-2">First Name</label>
                                 <div className="relative">
-                                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none"><User className="h-5 w-5 text-gray-500" /></div>
-                                    <input type="text" className="w-full bg-black/40 border border-white/5 rounded-xl py-3 pl-11 pr-4 text-white focus:ring-2 focus:ring-brand-purple/50 transition-all" placeholder="John" />
+                                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none"><User className="h-5 w-5 text-foreground/50 dark:text-gray-500" /></div>
+                                    <input type="text" className="w-full bg-foreground/5 dark:bg-background/40 border border-foreground/10 dark:border-white/5 rounded-xl py-3 pl-11 pr-4 text-foreground dark:text-white focus:ring-2 focus:ring-brand-purple/50 transition-all" placeholder="John" />
                                 </div>
                             </div>
 
                             {/* Last Name */}
                             <div>
-                                <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Last Name</label>
+                                <label className="block text-xs font-semibold text-foreground/60 dark:text-gray-400 uppercase tracking-wider mb-2">Last Name</label>
                                 <div className="relative">
-                                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none"><User className="h-5 w-5 text-gray-500" /></div>
-                                    <input type="text" className="w-full bg-black/40 border border-white/5 rounded-xl py-3 pl-11 pr-4 text-white focus:ring-2 focus:ring-brand-purple/50 transition-all" placeholder="Doe" />
+                                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none"><User className="h-5 w-5 text-foreground/50 dark:text-gray-500" /></div>
+                                    <input type="text" className="w-full bg-foreground/5 dark:bg-background/40 border border-foreground/10 dark:border-white/5 rounded-xl py-3 pl-11 pr-4 text-foreground dark:text-white focus:ring-2 focus:ring-brand-purple/50 transition-all" placeholder="Doe" />
                                 </div>
                             </div>
 
                             {/* Email */}
                             <div>
-                                <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Email Address</label>
+                                <label className="block text-xs font-semibold text-foreground/60 dark:text-gray-400 uppercase tracking-wider mb-2">Email Address</label>
                                 <div className="relative">
-                                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none"><Mail className="h-5 w-5 text-gray-500" /></div>
-                                    <input type="email" className="w-full bg-black/40 border border-white/5 rounded-xl py-3 pl-11 pr-4 text-white focus:ring-2 focus:ring-brand-purple/50 transition-all" placeholder="john@example.com" />
+                                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none"><Mail className="h-5 w-5 text-foreground/50 dark:text-gray-500" /></div>
+                                    <input type="email" className="w-full bg-foreground/5 dark:bg-background/40 border border-foreground/10 dark:border-white/5 rounded-xl py-3 pl-11 pr-4 text-foreground dark:text-white focus:ring-2 focus:ring-brand-purple/50 transition-all" placeholder="john@example.com" />
                                 </div>
                             </div>
 
                             {/* Phone */}
                             <div>
-                                <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Phone Number</label>
+                                <label className="block text-xs font-semibold text-foreground/60 dark:text-gray-400 uppercase tracking-wider mb-2">Phone Number</label>
                                 <div className="relative">
-                                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none"><Phone className="h-5 w-5 text-gray-500" /></div>
-                                    <input type="tel" className="w-full bg-black/40 border border-white/5 rounded-xl py-3 pl-11 pr-4 text-white focus:ring-2 focus:ring-brand-purple/50 transition-all" placeholder="+880 1..." />
+                                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none"><Phone className="h-5 w-5 text-foreground/50 dark:text-gray-500" /></div>
+                                    <input type="tel" className="w-full bg-foreground/5 dark:bg-background/40 border border-foreground/10 dark:border-white/5 rounded-xl py-3 pl-11 pr-4 text-foreground dark:text-white focus:ring-2 focus:ring-brand-purple/50 transition-all" placeholder="+880 1..." />
                                 </div>
                             </div>
 
                             {/* Class Selection */}
                             <div>
-                                <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Admission For Class</label>
+                                <label className="block text-xs font-semibold text-foreground/60 dark:text-gray-400 uppercase tracking-wider mb-2">Admission For Class</label>
                                 <div className="relative">
-                                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none"><BookOpen className="h-5 w-5 text-gray-500" /></div>
-                                    <select className="w-full bg-black/40 border border-white/5 rounded-xl py-3 pl-11 pr-4 text-white focus:ring-2 focus:ring-brand-purple/50 transition-all appearance-none cursor-pointer">
-                                        <option value="" className="bg-card text-gray-400">Select a Class</option>
+                                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none"><BookOpen className="h-5 w-5 text-foreground/50 dark:text-gray-500" /></div>
+                                    <select className="w-full bg-foreground/5 dark:bg-background/40 border border-foreground/10 dark:border-white/5 rounded-xl py-3 pl-11 pr-4 text-foreground dark:text-white focus:ring-2 focus:ring-brand-purple/50 transition-all appearance-none cursor-pointer">
+                                        <option value="" className="bg-card text-foreground/60 dark:text-gray-400">Select a Class</option>
                                         {[6, 7, 8, 9, 10].map(c => (
                                             <option key={c} value={c} className="bg-card">Class {c}</option>
                                         ))}
@@ -85,15 +85,15 @@ export default function AdmissionPage() {
 
                             {/* Address */}
                             <div>
-                                <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Current Address</label>
+                                <label className="block text-xs font-semibold text-foreground/60 dark:text-gray-400 uppercase tracking-wider mb-2">Current Address</label>
                                 <div className="relative">
-                                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none"><MapPin className="h-5 w-5 text-gray-500" /></div>
-                                    <input type="text" className="w-full bg-black/40 border border-white/5 rounded-xl py-3 pl-11 pr-4 text-white focus:ring-2 focus:ring-brand-purple/50 transition-all" placeholder="City, Region" />
+                                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none"><MapPin className="h-5 w-5 text-foreground/50 dark:text-gray-500" /></div>
+                                    <input type="text" className="w-full bg-foreground/5 dark:bg-background/40 border border-foreground/10 dark:border-white/5 rounded-xl py-3 pl-11 pr-4 text-foreground dark:text-white focus:ring-2 focus:ring-brand-purple/50 transition-all" placeholder="City, Region" />
                                 </div>
                             </div>
                         </div>
 
-                        <div className="pt-6 border-t border-white/10">
+                        <div className="pt-6 border-t border-foreground/15 dark:border-white/10">
                             <button className="w-full md:w-auto px-10 py-4 rounded-xl text-base font-bold text-white bg-gradient-to-r from-brand-pink to-brand-purple hover:neon-glow transition-all duration-300 flex items-center justify-center gap-2 group mx-auto">
                                 Submit Application
                                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />

@@ -12,6 +12,7 @@ interface Student {
         name: string;
         email: string;
         phone: string | null;
+        avatar: string | null;
         createdAt: string;
     };
     section: {
@@ -74,22 +75,15 @@ export default function AdminStudentsPage() {
         setError(null);
 
         const formData = new FormData(e.currentTarget);
-        const name = formData.get("name");
-        const email = formData.get("email");
-        const password = formData.get("password");
-        const rollNo = formData.get("rollNo");
-        const sectionId = formData.get("sectionId");
-        const phone = formData.get("phone");
 
         try {
             const token = localStorage.getItem("token");
             const response = await fetch(`${API_BASE_URL}/api/students`, {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json",
                     "Authorization": `Bearer ${token}`
                 },
-                body: JSON.stringify({ name, email, password, rollNo, sectionId, phone }),
+                body: formData,
             });
 
             const data = await response.json();
@@ -115,29 +109,15 @@ export default function AdminStudentsPage() {
         setError(null);
 
         const formData = new FormData(e.currentTarget);
-        const name = formData.get("name");
-        const email = formData.get("email");
-        const password = formData.get("password");
-        const rollNo = formData.get("rollNo");
-        const sectionId = formData.get("sectionId");
-        const phone = formData.get("phone");
 
         try {
             const token = localStorage.getItem("token");
             const response = await fetch(`${API_BASE_URL}/api/students/${editingStudent.id}`, {
                 method: "PUT",
                 headers: {
-                    "Content-Type": "application/json",
                     "Authorization": `Bearer ${token}`
                 },
-                body: JSON.stringify({
-                    name,
-                    email,
-                    phone,
-                    rollNo,
-                    sectionId,
-                    ...(password ? { password } : {})
-                }),
+                body: formData,
             });
 
             const data = await response.json();
@@ -196,8 +176,11 @@ export default function AdminStudentsPage() {
             {/* Header */}
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
                 <div>
-                    <h1 className="text-3xl font-heading font-bold text-white mb-2">Student Database</h1>
-                    <p className="text-gray-400">Manage all registered students across the institution.</p>
+                    <h1 className="text-3xl font-heading font-bold text-foreground dark:text-foreground dark:text-white mb-2">
+                        <span className="hidden dark:inline">Student Registry</span>
+                        <span className="inline dark:hidden text-gradient-premium">Student Registry</span>
+                    </h1>
+                    <p className="text-foreground/60">Comprehensive list and management of all enrolled students.</p>
                 </div>
 
                 <button
@@ -216,17 +199,17 @@ export default function AdminStudentsPage() {
             )}
 
             {/* Datatable Wrapper */}
-            <div className="glass rounded-3xl border border-white/5 overflow-hidden flex flex-col">
+            <div className="glass rounded-3xl border border-border overflow-hidden flex flex-col">
                 {/* Table Toolbar */}
-                <div className="p-4 md:p-6 border-b border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4 bg-black/40">
+                <div className="p-4 md:p-6 border-b border-border flex flex-col sm:flex-row items-center justify-between gap-4 bg-background/5 dark:bg-foreground/5 dark:bg-background/40">
                     <div className="relative w-full sm:max-w-md">
-                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-foreground/30" />
                         <input
                             type="text"
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            placeholder="Search by name, roll, or class..."
-                            className="w-full bg-card border border-white/10 rounded-lg py-2.5 pl-10 pr-4 text-sm text-white focus:outline-none focus:border-brand-purple transition-colors"
+                            placeholder="Find by name, ID or email..."
+                            className="w-full bg-background/5 dark:bg-card/50 border border-border rounded-xl py-2.5 pl-10 pr-4 text-sm text-foreground focus:outline-none focus:border-brand-purple transition-all"
                         />
                     </div>
                 </div>
@@ -236,58 +219,71 @@ export default function AdminStudentsPage() {
                     {isLoading ? (
                         <div className="flex flex-col items-center justify-center py-20 gap-4">
                             <Loader2 className="w-10 h-10 text-brand-purple animate-spin" />
-                            <p className="text-gray-400">Fetching student records...</p>
+                            <p className="text-foreground/60 dark:text-gray-400">Fetching student records...</p>
                         </div>
                     ) : filteredStudents.length > 0 ? (
                         <table className="w-full text-left border-collapse min-w-[800px]">
                             <thead>
-                                <tr className="bg-white/5 text-gray-400 text-xs font-semibold uppercase tracking-wider">
-                                    <th className="p-4 pl-6">Roll No</th>
-                                    <th className="p-4">Full Name</th>
-                                    <th className="p-4">Class & Section</th>
-                                    <th className="p-4">Contact Phone</th>
-                                    <th className="p-4">Joined At</th>
-                                    <th className="p-4 text-right pr-6">Actions</th>
+                                <tr className="bg-background/5 dark:bg-foreground/5 dark:bg-white/5 text-foreground/40 text-xs font-semibold uppercase tracking-wider text-left">
+                                    <th className="p-4 pl-6">Full Name</th>
+                                    <th className="p-4">Roll/ID</th>
+                                    <th className="p-4">Academic</th>
+                                    <th className="p-4">Parent Info</th>
+                                    <th className="p-4 text-right pr-6">Management</th>
                                 </tr>
                             </thead>
-                            <tbody className="divide-y divide-white/5">
+                            <tbody className="divide-y divide-border">
                                 {filteredStudents.map((student, i) => (
                                     <motion.tr
                                         initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}
-                                        key={student.id} className="hover:bg-white/5 transition-colors group relative"
+                                        key={student.id} className="hover:bg-foreground/5 dark:bg-white/5 transition-colors group relative"
                                     >
-                                        <td className="p-4 pl-6 font-bold text-gray-400 text-sm">{student.rollNo}</td>
-                                        <td className="p-4 font-bold text-white flex items-center gap-3">
-                                            <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-brand-pink/20 to-brand-purple/20 flex items-center justify-center text-xs border border-white/10 uppercase">
-                                                {student.user.name.charAt(0)}
+                                        <td className="p-4 pl-6">
+                                            <div className="flex items-center gap-3">
+                                                <div className="w-10 h-10 rounded-full border-2 border-border p-0.5 overflow-hidden">
+                                                    {student.user.avatar ? (
+                                                        <img
+                                                            src={student.user.avatar.startsWith("http") ? student.user.avatar : `${API_BASE_URL}${student.user.avatar}`}
+                                                            alt={student.user.name}
+                                                            className="w-full h-full object-cover rounded-full"
+                                                        />
+                                                    ) : (
+                                                        <div className="w-full h-full bg-gradient-to-br from-brand-pink to-brand-purple flex items-center justify-center text-xs font-black text-white rounded-full">
+                                                            {student.user.name.split(' ').map(n => n[0]).join('')}
+                                                        </div>
+                                                    )}
+                                                </div>
+                                                <div className="flex flex-col">
+                                                    <span className="text-sm font-bold text-foreground">{student.user.name}</span>
+                                                    <span className="text-[10px] text-foreground/40">{student.user.email}</span>
+                                                </div>
                                             </div>
+                                        </td>
+                                        <td className="p-4">
                                             <div className="flex flex-col">
-                                                <span className="text-sm">{student.user.name}</span>
-                                                <span className="text-[10px] text-gray-500">{student.user.email}</span>
+                                                <span className="text-xs font-black text-foreground/60">#{student.rollNo}</span>
+                                                <span className="text-[10px] text-foreground/30">{student.id.slice(0, 8)}</span>
                                             </div>
                                         </td>
-                                        <td className="p-4 text-gray-300 text-sm font-medium">
-                                            {student.section.class.name} <span className="text-gray-500 mx-1">•</span> <span className="text-brand-purple font-bold">Sec {student.section.name}</span>
+                                        <td className="p-4 text-foreground/70 dark:text-gray-300 text-sm font-medium">
+                                            {student.section.class.name} <span className="text-foreground/50 dark:text-gray-500 mx-1">•</span> <span className="text-brand-purple font-bold">Sec {student.section.name}</span>
                                         </td>
-                                        <td className="p-4 text-gray-400 text-sm">{student.user.phone || "N/A"}</td>
-                                        <td className="p-4 text-gray-500 text-xs font-medium">
-                                            {new Date(student.user.createdAt).toLocaleDateString()}
-                                        </td>
+                                        <td className="p-4 text-foreground/60 dark:text-gray-400 text-sm">{student.user.phone || "N/A"}</td>
                                         <td className="p-4 text-right pr-6">
                                             <div className="flex items-center justify-end gap-2">
                                                 <button
                                                     onClick={() => setEditingStudent(student)}
-                                                    className="p-2 text-gray-400 hover:text-white bg-white/5 hover:bg-white/10 rounded-lg transition-colors border border-transparent hover:border-white/10"
+                                                    className="p-2 text-foreground/40 hover:text-foreground bg-background/5 dark:bg-foreground/5 dark:bg-white/5 hover:bg-background/10 dark:hover:bg-foreground/10 dark:bg-white/10 rounded-lg transition-colors border border-border"
                                                 >
                                                     <Edit2 className="w-4 h-4" />
                                                 </button>
                                                 <button
                                                     onClick={() => handleDeleteStudent(student.id)}
-                                                    className="p-2 text-gray-400 hover:text-red-400 bg-white/5 hover:bg-red-500/10 rounded-lg transition-colors border border-transparent hover:border-red-500/20"
+                                                    className="p-2 text-foreground/40 hover:text-red-500 bg-background/5 dark:bg-foreground/5 dark:bg-white/5 hover:bg-red-500/10 rounded-lg transition-colors border border-border"
                                                 >
                                                     <Trash2 className="w-4 h-4" />
                                                 </button>
-                                                <button className="p-2 text-gray-500 hover:text-white transition-colors">
+                                                <button className="p-2 text-foreground/50 dark:text-gray-500 hover:text-foreground dark:text-white transition-colors">
                                                     <MoreVertical className="w-4 h-4" />
                                                 </button>
                                             </div>
@@ -299,7 +295,7 @@ export default function AdminStudentsPage() {
                     ) : (
                         <div className="flex flex-col items-center justify-center py-20 gap-3">
                             <GraduationCap className="w-12 h-12 text-gray-600" />
-                            <p className="text-gray-400">No students found.</p>
+                            <p className="text-foreground/60 dark:text-gray-400">No students found.</p>
                         </div>
                     )}
                 </div>
@@ -311,63 +307,63 @@ export default function AdminStudentsPage() {
                     <motion.div
                         initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
                         onClick={() => setIsAdding(false)}
-                        className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 px-4 flex items-center justify-center"
+                        className="fixed inset-0 bg-foreground/5 dark:bg-background/60 backdrop-blur-sm z-50 px-4 flex items-center justify-center"
                     >
                         <motion.div
                             initial={{ scale: 0.9, opacity: 0, y: 20 }} animate={{ scale: 1, opacity: 1, y: 0 }} exit={{ scale: 0.9, opacity: 0, y: 20 }}
                             onClick={(e) => e.stopPropagation()}
                             className="w-full max-w-xl glass p-8 rounded-3xl relative"
                         >
-                            <button onClick={() => setIsAdding(false)} className="absolute top-6 right-6 p-2 text-gray-400 hover:text-white rounded-full">
+                            <button onClick={() => setIsAdding(false)} className="absolute top-6 right-6 p-2 text-foreground/60 dark:text-gray-400 hover:text-foreground dark:text-white rounded-full">
                                 <X className="w-6 h-6" />
                             </button>
 
-                            <h2 className="text-2xl font-heading font-bold text-white mb-6">Register New Student</h2>
+                            <h2 className="text-2xl font-heading font-bold text-foreground mb-6">Register New Student</h2>
 
                             <form onSubmit={handleAddStudent} className="space-y-4">
                                 <div className="grid grid-cols-2 gap-4">
                                     <div className="space-y-1.5">
-                                        <label className="text-xs font-semibold text-gray-500 uppercase tracking-widest pl-1">Full Name</label>
+                                        <label className="text-xs font-semibold text-foreground/50 dark:text-gray-500 uppercase tracking-widest pl-1">Full Name</label>
                                         <div className="relative">
-                                            <User className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
-                                            <input name="name" required className="w-full bg-black/40 border border-white/5 rounded-xl py-3 pl-11 text-white text-sm focus:border-brand-pink outline-none" placeholder="Ali Hasan" />
+                                            <User className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-foreground/50 dark:text-gray-500" />
+                                            <input name="name" required className="w-full bg-background/5 dark:bg-foreground/5 dark:bg-background/40 border border-border rounded-xl py-3 pl-11 text-foreground text-sm focus:border-brand-pink outline-none" placeholder="Ali Hasan" />
                                         </div>
                                     </div>
                                     <div className="space-y-1.5">
-                                        <label className="text-xs font-semibold text-gray-500 uppercase tracking-widest pl-1">Email Address</label>
+                                        <label className="text-xs font-semibold text-foreground/50 dark:text-gray-500 uppercase tracking-widest pl-1">Email Address</label>
                                         <div className="relative">
-                                            <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
-                                            <input name="email" type="email" required className="w-full bg-black/40 border border-white/5 rounded-xl py-3 pl-11 text-white text-sm focus:border-brand-pink outline-none" placeholder="ali@school.com" />
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="grid grid-cols-2 gap-4">
-                                    <div className="space-y-1.5">
-                                        <label className="text-xs font-semibold text-gray-500 uppercase tracking-widest pl-1">Password</label>
-                                        <div className="relative">
-                                            <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
-                                            <input name="password" type="password" required className="w-full bg-black/40 border border-white/5 rounded-xl py-3 pl-11 text-white text-sm focus:border-brand-pink outline-none" placeholder="••••••••" />
-                                        </div>
-                                    </div>
-                                    <div className="space-y-1.5">
-                                        <label className="text-xs font-semibold text-gray-500 uppercase tracking-widest pl-1">Roll Number</label>
-                                        <div className="relative">
-                                            <Hash className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
-                                            <input name="rollNo" type="number" required className="w-full bg-black/40 border border-white/5 rounded-xl py-3 pl-11 text-white text-sm focus:border-brand-pink outline-none" placeholder="101" />
+                                            <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-foreground/50 dark:text-gray-500" />
+                                            <input name="email" type="email" required className="w-full bg-background/5 dark:bg-foreground/5 dark:bg-background/40 border border-border rounded-xl py-3 pl-11 text-foreground text-sm focus:border-brand-pink outline-none" placeholder="ali@school.com" />
                                         </div>
                                     </div>
                                 </div>
 
                                 <div className="grid grid-cols-2 gap-4">
                                     <div className="space-y-1.5">
-                                        <label className="text-xs font-semibold text-gray-500 uppercase tracking-widest pl-1">Class Section</label>
+                                        <label className="text-xs font-semibold text-foreground/50 dark:text-gray-500 uppercase tracking-widest pl-1">Password</label>
                                         <div className="relative">
-                                            <Book className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
-                                            <select name="sectionId" required className="w-full bg-black/40 border border-white/5 rounded-xl py-3 pl-11 text-white text-sm focus:border-brand-pink outline-none appearance-none cursor-pointer">
+                                            <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-foreground/50 dark:text-gray-500" />
+                                            <input name="password" type="password" required className="w-full bg-background/5 dark:bg-foreground/5 dark:bg-background/40 border border-border rounded-xl py-3 pl-11 text-foreground text-sm focus:border-brand-pink outline-none" placeholder="••••••••" />
+                                        </div>
+                                    </div>
+                                    <div className="space-y-1.5">
+                                        <label className="text-xs font-semibold text-foreground/50 dark:text-gray-500 uppercase tracking-widest pl-1">Roll Number</label>
+                                        <div className="relative">
+                                            <Hash className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-foreground/50 dark:text-gray-500" />
+                                            <input name="rollNo" type="number" required className="w-full bg-background/5 dark:bg-foreground/5 dark:bg-background/40 border border-border rounded-xl py-3 pl-11 text-foreground text-sm focus:border-brand-pink outline-none" placeholder="101" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div className="space-y-1.5">
+                                        <label className="text-xs font-semibold text-foreground/50 dark:text-gray-500 uppercase tracking-widest pl-1">Class Section</label>
+                                        <div className="relative">
+                                            <Book className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-foreground/50 dark:text-gray-500" />
+                                            <select name="sectionId" required className="w-full bg-foreground/5 dark:bg-background/40 border border-foreground/10 dark:border-white/5 rounded-xl py-3 pl-11 text-foreground dark:text-white text-sm focus:border-brand-pink outline-none appearance-none cursor-pointer">
                                                 <option value="" disabled selected>Select Section</option>
                                                 {sections.map(sec => (
-                                                    <option key={sec.id} value={sec.id} className="bg-card text-white">
+                                                    <option key={sec.id} value={sec.id} className="bg-card text-foreground dark:text-white">
                                                         {sec.class.name} - Sec {sec.name}
                                                     </option>
                                                 ))}
@@ -375,15 +371,23 @@ export default function AdminStudentsPage() {
                                         </div>
                                     </div>
                                     <div className="space-y-1.5">
-                                        <label className="text-xs font-semibold text-gray-500 uppercase tracking-widest pl-1">Phone Number</label>
+                                        <label className="text-xs font-semibold text-foreground/50 dark:text-gray-500 uppercase tracking-widest pl-1">Phone Number</label>
                                         <div className="relative">
-                                            <Phone className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
-                                            <input name="phone" className="w-full bg-black/40 border border-white/5 rounded-xl py-3 pl-11 text-white text-sm focus:border-brand-pink outline-none" placeholder="01711000000" />
+                                            <Phone className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-foreground/50 dark:text-gray-500" />
+                                            <input name="phone" className="w-full bg-foreground/5 dark:bg-background/40 border border-foreground/10 dark:border-white/5 rounded-xl py-3 pl-11 text-foreground dark:text-white text-sm focus:border-brand-pink outline-none" placeholder="01711000000" />
                                         </div>
                                     </div>
                                 </div>
 
-                                <p className="text-[10px] text-gray-500">* Section IDs are required from database. Please use valid UUIDs for testing.</p>
+                                <div className="space-y-1.5">
+                                    <label className="text-xs font-semibold text-foreground/40 uppercase tracking-widest pl-1">Photo</label>
+                                    <input
+                                        type="file"
+                                        name="image"
+                                        accept="image/*"
+                                        className="w-full bg-background/5 dark:bg-foreground/5 dark:bg-white/5 border border-border rounded-xl py-3 px-4 text-foreground text-sm focus:outline-none focus:border-brand-pink transition-all file:mr-4 file:py-1 file:px-3 file:rounded-full file:border-0 file:text-xs file:font-bold file:bg-brand-pink file:text-white hover:file:bg-brand-pink/80"
+                                    />
+                                </div>
 
                                 <button
                                     disabled={isSubmitting}
@@ -404,43 +408,43 @@ export default function AdminStudentsPage() {
                     <motion.div
                         initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
                         onClick={() => setEditingStudent(null)}
-                        className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 px-4 flex items-center justify-center"
+                        className="fixed inset-0 bg-foreground/5 dark:bg-background/60 backdrop-blur-sm z-50 px-4 flex items-center justify-center"
                     >
                         <motion.div
                             initial={{ scale: 0.9, opacity: 0, y: 20 }} animate={{ scale: 1, opacity: 1, y: 0 }} exit={{ scale: 0.9, opacity: 0, y: 20 }}
                             onClick={(e) => e.stopPropagation()}
                             className="w-full max-w-xl glass p-8 rounded-3xl relative"
                         >
-                            <button onClick={() => setEditingStudent(null)} className="absolute top-6 right-6 p-2 text-gray-400 hover:text-white rounded-full">
+                            <button onClick={() => setEditingStudent(null)} className="absolute top-6 right-6 p-2 text-foreground/60 dark:text-gray-400 hover:text-foreground dark:text-white rounded-full">
                                 <X className="w-6 h-6" />
                             </button>
 
-                            <h2 className="text-2xl font-heading font-bold text-white mb-6">Update Student Profile</h2>
+                            <h2 className="text-2xl font-heading font-bold text-foreground dark:text-white mb-6">Update Student Profile</h2>
 
                             <form onSubmit={handleEditStudent} className="space-y-4">
                                 <div className="grid grid-cols-2 gap-4">
                                     <div className="space-y-1.5">
-                                        <label className="text-xs font-semibold text-gray-500 uppercase tracking-widest pl-1">Full Name</label>
+                                        <label className="text-xs font-semibold text-foreground/50 dark:text-gray-500 uppercase tracking-widest pl-1">Full Name</label>
                                         <div className="relative">
-                                            <User className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
-                                            <input name="name" required defaultValue={editingStudent.user.name} className="w-full bg-black/40 border border-white/5 rounded-xl py-3 pl-11 text-white text-sm focus:border-brand-pink outline-none" />
+                                            <User className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-foreground/50 dark:text-gray-500" />
+                                            <input name="name" required defaultValue={editingStudent.user.name} className="w-full bg-foreground/5 dark:bg-background/40 border border-foreground/10 dark:border-white/5 rounded-xl py-3 pl-11 text-foreground dark:text-white text-sm focus:border-brand-pink outline-none" />
                                         </div>
                                     </div>
                                     <div className="space-y-1.5">
-                                        <label className="text-xs font-semibold text-gray-500 uppercase tracking-widest pl-1">Email Address</label>
+                                        <label className="text-xs font-semibold text-foreground/50 dark:text-gray-500 uppercase tracking-widest pl-1">Email Address</label>
                                         <div className="relative">
-                                            <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
-                                            <input name="email" type="email" required defaultValue={editingStudent.user.email} className="w-full bg-black/40 border border-white/5 rounded-xl py-3 pl-11 text-white text-sm focus:border-brand-pink outline-none" />
+                                            <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-foreground/50 dark:text-gray-500" />
+                                            <input name="email" type="email" required defaultValue={editingStudent.user.email} className="w-full bg-foreground/5 dark:bg-background/40 border border-foreground/10 dark:border-white/5 rounded-xl py-3 pl-11 text-foreground dark:text-white text-sm focus:border-brand-pink outline-none" />
                                         </div>
                                     </div>
                                 </div>
 
                                 <div className="grid grid-cols-2 gap-4">
                                     <div className="space-y-1.5">
-                                        <label className="text-xs font-semibold text-gray-500 uppercase tracking-widest pl-1">Role/Section Change</label>
+                                        <label className="text-xs font-semibold text-foreground/50 dark:text-gray-500 uppercase tracking-widest pl-1">Role/Section Change</label>
                                         <div className="relative">
-                                            <Book className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
-                                            <select name="sectionId" required className="w-full bg-black/40 border border-white/5 rounded-xl py-3 pl-11 text-white text-sm focus:border-brand-pink outline-none appearance-none cursor-pointer">
+                                            <Book className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-foreground/50 dark:text-gray-500" />
+                                            <select name="sectionId" required className="w-full bg-foreground/5 dark:bg-background/40 border border-foreground/10 dark:border-white/5 rounded-xl py-3 pl-11 text-foreground dark:text-white text-sm focus:border-brand-pink outline-none appearance-none cursor-pointer">
                                                 {sections.map(sec => (
                                                     <option key={sec.id} value={sec.id} selected={sec.id === (editingStudent as any).sectionId}>
                                                         {sec.class.name} - Sec {sec.name}
@@ -450,29 +454,38 @@ export default function AdminStudentsPage() {
                                         </div>
                                     </div>
                                     <div className="space-y-1.5">
-                                        <label className="text-xs font-semibold text-gray-500 uppercase tracking-widest pl-1">Roll Number</label>
+                                        <label className="text-xs font-semibold text-foreground/50 dark:text-gray-500 uppercase tracking-widest pl-1">Roll Number</label>
                                         <div className="relative">
-                                            <Hash className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
-                                            <input name="rollNo" type="number" required defaultValue={editingStudent.rollNo} className="w-full bg-black/40 border border-white/5 rounded-xl py-3 pl-11 text-white text-sm focus:border-brand-pink outline-none" />
+                                            <Hash className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-foreground/50 dark:text-gray-500" />
+                                            <input name="rollNo" type="number" required defaultValue={editingStudent.rollNo} className="w-full bg-foreground/5 dark:bg-background/40 border border-foreground/10 dark:border-white/5 rounded-xl py-3 pl-11 text-foreground dark:text-white text-sm focus:border-brand-pink outline-none" />
                                         </div>
                                     </div>
                                 </div>
 
                                 <div className="grid grid-cols-2 gap-4">
                                     <div className="space-y-1.5">
-                                        <label className="text-xs font-semibold text-gray-500 uppercase tracking-widest pl-1">New Password (Optional)</label>
+                                        <label className="text-xs font-semibold text-foreground/50 dark:text-gray-500 uppercase tracking-widest pl-1">New Password (Optional)</label>
                                         <div className="relative">
-                                            <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
-                                            <input name="password" type="password" className="w-full bg-black/40 border border-white/5 rounded-xl py-3 pl-11 text-white text-sm focus:border-brand-pink outline-none" placeholder="Keep current" />
+                                            <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-foreground/50 dark:text-gray-500" />
+                                            <input name="password" type="password" className="w-full bg-foreground/5 dark:bg-background/40 border border-foreground/10 dark:border-white/5 rounded-xl py-3 pl-11 text-foreground dark:text-white text-sm focus:border-brand-pink outline-none" placeholder="Keep current" />
                                         </div>
                                     </div>
                                     <div className="space-y-1.5">
-                                        <label className="text-xs font-semibold text-gray-500 uppercase tracking-widest pl-1">Phone Number</label>
+                                        <label className="text-xs font-semibold text-foreground/50 dark:text-gray-500 uppercase tracking-widest pl-1">Phone Number</label>
                                         <div className="relative">
-                                            <Phone className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
-                                            <input name="phone" defaultValue={editingStudent.user.phone || ""} className="w-full bg-black/40 border border-white/5 rounded-xl py-3 pl-11 text-white text-sm focus:border-brand-pink outline-none" />
+                                            <Phone className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-foreground/50 dark:text-gray-500" />
+                                            <input name="phone" defaultValue={editingStudent.user.phone || ""} className="w-full bg-foreground/5 dark:bg-background/40 border border-foreground/10 dark:border-white/5 rounded-xl py-3 pl-11 text-foreground dark:text-white text-sm focus:border-brand-pink outline-none" />
                                         </div>
                                     </div>
+                                </div>
+                                <div className="space-y-1.5">
+                                    <label className="text-xs font-semibold text-foreground/40 uppercase tracking-widest pl-1">Photo</label>
+                                    <input
+                                        type="file"
+                                        name="image"
+                                        accept="image/*"
+                                        className="w-full bg-background/5 dark:bg-foreground/5 dark:bg-white/5 border border-border rounded-xl py-3 px-4 text-foreground text-sm focus:outline-none focus:border-brand-pink transition-all file:mr-4 file:py-1 file:px-3 file:rounded-full file:border-0 file:text-xs file:font-bold file:bg-brand-pink file:text-white hover:file:bg-brand-pink/80"
+                                    />
                                 </div>
 
                                 <button

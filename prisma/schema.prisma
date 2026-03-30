@@ -3,22 +3,19 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
 // -----------------------------------------------------------------
-// Enums & Shared Types
+// Models
 // -----------------------------------------------------------------
-
-// SQLite does not support native enums, normally we would use them in PostgreSQL. 
-// For Prisma + SQLite we handle them as Strings, but define consts in code.
 
 model User {
   id        String   @id @default(uuid())
   email     String   @unique
-  password  String   // Hashed
-  role      String   // ADMIN, TEACHER, STUDENT
+  password  String
+  role      String   // "ADMIN" | "TEACHER" | "STUDENT"
   name      String
   phone     String?
   avatar    String?
@@ -27,50 +24,101 @@ model User {
 
   studentProfile Student?
   teacherProfile Teacher?
-  
+
   messagesSent     Message[] @relation("Sender")
   messagesReceived Message[] @relation("Receiver")
 }
 
 model Class {
   id       String    @id @default(uuid())
-  name     String    // e.g. "Class 10"
+  name     String
   sections Section[]
 }
 
 model Section {
-  id       String    @id @default(uuid())
-  name     String    // e.g. "A"
-  classId  String
-  class    Class     @relation(fields: [classId], references: [id])
-  
+  id      String @id @default(uuid())
+  name    String
+  classId String
+  class   Class  @relation(fields: [classId], references: [id])
+
   students Student[]
   subjects Subject[]
 }
 
 model Subject {
-  id        String    @id @default(uuid())
-  name      String    // e.g. "Mathematics"
+  id        String  @id @default(uuid())
+  name      String
   code      String
   sectionId String
-  section   Section   @relation(fields: [sectionId], references: [id])
-  
+  section   Section @relation(fields: [sectionId], references: [id])
+
   teacherId String?
-  teacher   Teacher?   @relation(fields: [teacherId], references: [id])
+  teacher   Teacher? @relation(fields: [teacherId], references: [id], onDelete: SetNull)
 
   marks       Mark[]
   assignments Assignment[]
   attendances Attendance[]
 }
 
+model GalleryItem {
+  id          String   @id @default(uuid())
+  title       String
+  imageUrl    String
+  description String?
+  createdAt   DateTime @default(now())
+}
+
+model StaffProfile {
+  id        String   @id @default(uuid())
+  name      String
+  role      String
+  bio       String?
+  imageUrl  String?
+  isHead    Boolean  @default(false)
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+}
+
+model SiteStat {
+  id        String   @id @default(uuid())
+  key       String   @unique
+  label     String
+  value     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Event {
+  id          String   @id @default(uuid())
+  title       String
+  date        DateTime
+  type        String   // "ACADEMIC" | "HOLIDAY" | "CULTURAL" etc.
+  description String?
+  imageUrl    String?
+  createdAt   DateTime @default(now())
+}
+
+model RoutineEntry {
+  id          String   @id @default(uuid())
+  className   String   // e.g. "Class 10"
+  section     String   // e.g. "A"
+  dayOfWeek   String   // "SAT", "SUN", ...
+  startTime   String   // "09:00"
+  endTime     String   // "09:45"
+  subject     String
+  teacherName String
+  room        String?
+  createdAt   DateTime @default(now())
+}
+
 model Student {
-  id        String    @id @default(cuid()) // Format styling e.g STU-XXX handled in app
-  userId    String    @unique
-  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  
+  id     String @id @default(cuid())
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
   rollNo    Int
   sectionId String
-  section   Section   @relation(fields: [sectionId], references: [id])
+  section   Section @relation(fields: [sectionId], references: [id])
 
   marks       Mark[]
   attendances Attendance[]
@@ -78,85 +126,115 @@ model Student {
 }
 
 model Teacher {
-  id             String    @id @default(cuid())
-  userId         String    @unique
-  user           User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  
+  id     String @id @default(cuid())
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
   specialization String?
-  subjects       Subject[]
+  photoUrl       String?
+  bio            String?
+  qualifications String?
+  experience     String?
+
+  subjects Subject[]
 }
 
 model Attendance {
-  id        String   @id @default(uuid())
-  date      DateTime
-  status    String   // PRESENT, ABSENT, LATE
-  
+  id     String   @id @default(uuid())
+  date   DateTime
+  status String   // "PRESENT" | "ABSENT" | "LATE"
+
   studentId String
-  student   Student  @relation(fields: [studentId], references: [id], onDelete: Cascade)
-  
+  student   Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
   subjectId String?
   subject   Subject? @relation(fields: [subjectId], references: [id])
 
   createdAt DateTime @default(now())
+
+  @@unique([studentId, subjectId, date])
 }
 
 model Mark {
-  id          String   @id @default(uuid())
-  examType    String   // Class Test, Mid, Final
-  score       Float
-  totalScore  Float
-  
-  studentId   String
-  student     Student  @relation(fields: [studentId], references: [id], onDelete: Cascade)
-  
-  subjectId   String
-  subject     Subject  @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+  id         String @id @default(uuid())
+  examType   String // "CLASS_TEST" | "MID" | "FINAL"
+  score      Float
+  totalScore Float
 
-  createdAt   DateTime @default(now())
+  studentId String
+  student   Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  subjectId String
+  subject   Subject @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
 }
 
 model Assignment {
-  id          String       @id @default(uuid())
+  id          String    @id @default(uuid())
   title       String
   description String?
   dueDate     DateTime
-  fileUrl     String?      // Links to uploaded PDF/Images
-  
-  subjectId   String
-  subject     Subject      @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+  fileUrl     String?
+
+  subjectId String
+  subject   Subject @relation(fields: [subjectId], references: [id], onDelete: Cascade)
 
   submissions Submission[]
 }
 
 model Submission {
-  id           String     @id @default(uuid())
-  fileUrl      String?
-  submittedAt  DateTime   @default(now())
-  
+  id          String   @id @default(uuid())
+  fileUrl     String?
+  submittedAt DateTime @default(now())
+
   assignmentId String
   assignment   Assignment @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
-  
-  studentId    String
-  student      Student    @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  studentId String
+  student   Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@unique([assignmentId, studentId])
 }
 
 model Notice {
-  id        String   @id @default(uuid())
-  title     String
-  content   String
-  type      String   // GENERAL, ACADEMIC, EMERGENCY
-  createdAt DateTime @default(now())
+  id               String   @id @default(uuid())
+  title            String
+  content          String
+  type             String   // "GENERAL" | "ACADEMIC" | "EMERGENCY"
+  featuredOnHome   Boolean  @default(false)
+  floatOnHome      Boolean  @default(false)
+  createdAt        DateTime @default(now())
+}
+
+model HomeDailyContent {
+  id           String   @id @default("default")
+  quranText    String   @default("")
+  quranRef     String   @default("")
+  hadithText   String   @default("")
+  hadithRef    String   @default("")
+  motivational String   @default("")
+  updatedAt    DateTime @updatedAt
 }
 
 model Message {
-  id         String   @id @default(uuid())
-  content    String
-  createdAt  DateTime @default(now())
-  isRead     Boolean  @default(false)
+  id        String   @id @default(uuid())
+  content   String
+  createdAt DateTime @default(now())
+  isRead    Boolean  @default(false)
 
-  senderId   String
-  sender     User     @relation("Sender", fields: [senderId], references: [id])
-  
+  senderId String
+  sender   User   @relation("Sender", fields: [senderId], references: [id])
+
   receiverId String
-  receiver   User     @relation("Receiver", fields: [receiverId], references: [id])
+  receiver   User   @relation("Receiver", fields: [receiverId], references: [id])
+}
+
+model ContactRequest {
+  id        String   @id @default(uuid())
+  name      String
+  email     String
+  message   String
+  createdAt DateTime @default(now())
+  isRead    Boolean  @default(false)
 }

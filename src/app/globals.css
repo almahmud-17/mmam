@@ -9,14 +9,53 @@
   --font-sans: var(--font-inter);
   --font-heading: var(--font-poppins);
   --font-bangla: var(--font-noto-bengali);
+  /* Madrasah title lines: Amaranth for Latin; Bengali & Arabic fall back gracefully */
+  --font-madrasah-name: var(--font-amaranth), var(--font-noto-bengali), "Traditional Arabic",
+    "Amiri", "Scheherazade New", serif;
 }
 
 :root {
+  --background: #F5F5F7;
+  /* Premium Apple-like light gray background */
+  --foreground: #1D1D1F;
+  /* Premium deep text color */
+  --card: #FFFFFF;
+  --brand-pink: #FF2D55;
+  --brand-purple: #5856D6;
+  --brand-green: #34C759;
+  --border: rgba(0, 0, 0, 0.06);
+  --glass-bg: rgba(255, 255, 255, 0.85);
+  --glass-border: rgba(255, 255, 255, 0.6);
+  --pre-footer-bg: #eef2ec;
+  --pre-footer-text-heading: #1E3A8A;
+  --pre-footer-text-primary: #111827;
+  --pre-footer-text-secondary: #374151;
+  --pre-footer-icon: #374151;
+}
+
+.dark {
   --background: #0B0B0D;
-  --foreground: #EEEEEE;
+  --foreground: #F1F5F9;
   --card: #1A1A1D;
-  --brand-pink: #FF2D7D;
-  --brand-purple: #A855F7;
+  --border: rgba(255, 255, 255, 0.08);
+  --glass-bg: rgba(26, 26, 29, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.05);
+  --pre-footer-bg: #0B0B0D;
+  --pre-footer-text-heading: #60A5FA;
+  --pre-footer-text-primary: #FFFFFF;
+  --pre-footer-text-secondary: #FFFFFF;
+  --pre-footer-icon: #60A5FA;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5.5rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 body {
@@ -27,10 +66,10 @@ body {
 }
 
 @utility glass {
-  background: rgba(26, 26, 29, 0.6);
+  background: var(--glass-bg);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--glass-border);
 }
 
 @utility neon-glow {
@@ -44,6 +83,14 @@ body {
 
 @utility text-gradient {
   background: linear-gradient(to right, var(--brand-pink), var(--brand-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@utility text-gradient-premium {
+  background: linear-gradient(to right, #059669, #10B981);
+  /* Emerald to Teal */
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

@@ -6,6 +6,7 @@ import { Router, Request, Response } from "express";
 import { db } from "../lib/db";
 import { hashPassword, ROLES } from "../lib/auth";
 import { authenticate, requireRole } from "../middleware/auth";
+import { upload } from "../lib/upload";
 
 const router = Router();
 
@@ -28,10 +29,15 @@ router.get("/", authenticate, requireRole(ROLES.ADMIN), async (_req: Request, re
     }
 });
 
-// POST /api/teachers
-router.post("/", authenticate, requireRole(ROLES.ADMIN), async (req: Request, res: Response): Promise<void> => {
+// POST /api/teachers — Support photo upload
+router.post("/", authenticate, requireRole(ROLES.ADMIN), upload.single("image"), async (req: Request, res: Response): Promise<void> => {
     try {
-        const { name, email, password, phone, specialization } = req.body;
+        const { name, email, password, phone, specialization, bio, qualifications, experience } = req.body;
+        let photoUrl = req.body.photoUrl;
+
+        if (req.file) {
+            photoUrl = `/uploads/${req.file.filename}`;
+        }
 
         if (!name || !email || !password) {
             res.status(400).json({ success: false, error: "name, email, and password are required." });
@@ -54,7 +60,13 @@ router.post("/", authenticate, requireRole(ROLES.ADMIN), async (req: Request, re
                 role: ROLES.TEACHER,
                 phone: phone ? String(phone) : null,
                 teacherProfile: {
-                    create: { specialization: specialization ? String(specialization) : null },
+                    create: {
+                        specialization: specialization ? String(specialization) : null,
+                        photoUrl: photoUrl ? String(photoUrl) : null,
+                        bio: bio ? String(bio) : null,
+                        qualifications: qualifications ? String(qualifications) : null,
+                        experience: experience ? String(experience) : null,
+                    },
                 },
             },
             include: { teacherProfile: true },
@@ -69,11 +81,16 @@ router.post("/", authenticate, requireRole(ROLES.ADMIN), async (req: Request, re
     }
 });
 
-// PUT /api/teachers/:id
-router.put("/:id", authenticate, requireRole(ROLES.ADMIN), async (req: Request, res: Response): Promise<void> => {
+// PUT /api/teachers/:id — Support photo upload
+router.put("/:id", authenticate, requireRole(ROLES.ADMIN), upload.single("image"), async (req: Request, res: Response): Promise<void> => {
     try {
         const { id } = req.params;
-        const { name, email, password, phone, specialization } = req.body;
+        const { name, email, password, phone, specialization, bio, qualifications, experience } = req.body;
+        let photoUrl = req.body.photoUrl;
+
+        if (req.file) {
+            photoUrl = `/uploads/${req.file.filename}`;
+        }
 
         const teacher = await db.teacher.findUnique({ where: { id: String(id) }, include: { user: true } });
         if (!teacher) {
@@ -102,9 +119,18 @@ router.put("/:id", authenticate, requireRole(ROLES.ADMIN), async (req: Request, 
             data: {
                 ...updateData,
                 teacherProfile: {
-                    update: { specialization: specialization !== undefined ? (specialization ? String(specialization) : null) : undefined }
-                }
-            }
+                    update: {
+                        specialization:
+                            specialization !== undefined ? (specialization ? String(specialization) : null) : undefined,
+                        photoUrl: photoUrl !== undefined ? (photoUrl ? String(photoUrl) : null) : undefined,
+                        bio: bio !== undefined ? (bio ? String(bio) : null) : undefined,
+                        qualifications:
+                            qualifications !== undefined ? (qualifications ? String(qualifications) : null) : undefined,
+                        experience:
+                            experience !== undefined ? (experience ? String(experience) : null) : undefined,
+                    },
+                },
+            },
         });
 
         res.json({ success: true, message: "Teacher updated successfully." });

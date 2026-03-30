@@ -23,10 +23,10 @@ export default function StudentDashboardHome() {
                 className="w-full bg-gradient-to-r from-brand-pink/20 to-brand-purple/20 border border-brand-purple/30 rounded-3xl p-8 md:p-10 relative overflow-hidden"
             >
                 <div className="absolute top-0 right-0 w-64 h-64 bg-brand-pink/20 rounded-full blur-[80px] -z-10" />
-                <h1 className="text-3xl md:text-4xl font-heading font-bold text-white mb-2">
+                <h1 className="text-3xl md:text-4xl font-heading font-bold text-foreground dark:text-white mb-2">
                     Welcome back, <span className="text-gradient">John!</span> 👋
                 </h1>
-                <p className="text-gray-300 font-medium">Class 10 - Section A | Roll: 15</p>
+                <p className="text-foreground/70 dark:text-gray-300 font-medium">Class 10 - Section A | Roll: 15</p>
             </motion.div>
 
             {/* Quick Stats Grid */}
@@ -40,13 +40,13 @@ export default function StudentDashboardHome() {
                     { title: "Overall GPA", value: "4.8", subtitle: "Mid-term results", icon: TrendingUp, color: "text-brand-purple", bg: "bg-brand-purple/10" },
                     { title: "Pending Tasks", value: "1", subtitle: "Math Assignment", icon: AlertCircle, color: "text-yellow-400", bg: "bg-yellow-400/10" },
                 ].map((stat, i) => (
-                    <motion.div key={i} variants={fadeIn} className="glass p-6 rounded-2xl border border-white/5 hover:-translate-y-1 transition-transform group">
+                    <motion.div key={i} variants={fadeIn} className="glass p-6 rounded-2xl border border-foreground/10 dark:border-white/5 hover:-translate-y-1 transition-transform group">
                         <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 ${stat.bg}`}>
                             <stat.icon className={`w-6 h-6 ${stat.color} group-hover:scale-110 transition-transform`} />
                         </div>
-                        <p className="text-gray-400 text-sm font-medium mb-1">{stat.title}</p>
-                        <h3 className="text-3xl font-heading font-bold text-white mb-1">{stat.value}</h3>
-                        <p className="text-xs text-gray-500">{stat.subtitle}</p>
+                        <p className="text-foreground/60 dark:text-gray-400 text-sm font-medium mb-1">{stat.title}</p>
+                        <h3 className="text-3xl font-heading font-bold text-foreground dark:text-white mb-1">{stat.value}</h3>
+                        <p className="text-xs text-foreground/50 dark:text-gray-500">{stat.subtitle}</p>
                     </motion.div>
                 ))}
             </motion.div>
@@ -55,9 +55,9 @@ export default function StudentDashboardHome() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
 
                 {/* Notice Board */}
-                <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5, delay: 0.3 }} className="glass rounded-3xl p-6 md:p-8 border border-white/5">
+                <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5, delay: 0.3 }} className="glass rounded-3xl p-6 md:p-8 border border-foreground/10 dark:border-white/5">
                     <div className="flex items-center justify-between mb-6">
-                        <h2 className="text-xl font-heading font-bold text-white">Notice Board</h2>
+                        <h2 className="text-xl font-heading font-bold text-foreground dark:text-white">Notice Board</h2>
                         <button className="text-sm font-semibold text-brand-pink hover:text-brand-purple transition-colors">View All</button>
                     </div>
                     <div className="space-y-4">
@@ -66,13 +66,13 @@ export default function StudentDashboardHome() {
                             { date: "Oct 12", title: "School Closed for Autumn Vacation", new: false },
                             { date: "Oct 08", title: "Science Fair 2026 Registration Open", new: false },
                         ].map((notice, i) => (
-                            <div key={i} className="flex gap-4 p-4 rounded-xl bg-black/40 hover:bg-white/5 transition-colors border border-transparent hover:border-white/10 group cursor-pointer">
-                                <div className="shrink-0 w-14 h-14 rounded-lg bg-white/5 border border-white/10 flex flex-col items-center justify-center">
+                            <div key={i} className="flex gap-4 p-4 rounded-xl bg-foreground/5 dark:bg-background/40 hover:bg-foreground/5 dark:bg-white/5 transition-colors border border-transparent hover:border-foreground/15 dark:border-white/10 group cursor-pointer">
+                                <div className="shrink-0 w-14 h-14 rounded-lg bg-foreground/5 dark:bg-white/5 border border-foreground/15 dark:border-white/10 flex flex-col items-center justify-center">
                                     <span className="text-brand-pink text-xs font-bold uppercase">{notice.date.split(" ")[0]}</span>
-                                    <span className="text-white font-bold">{notice.date.split(" ")[1]}</span>
+                                    <span className="text-foreground dark:text-white font-bold">{notice.date.split(" ")[1]}</span>
                                 </div>
                                 <div>
-                                    <h4 className="text-white font-semibold text-sm group-hover:text-brand-pink transition-colors line-clamp-2 mb-1">{notice.title}</h4>
+                                    <h4 className="text-foreground dark:text-white font-semibold text-sm group-hover:text-brand-pink transition-colors line-clamp-2 mb-1">{notice.title}</h4>
                                     {notice.new && <span className="text-[10px] uppercase tracking-wider font-bold bg-green-500/20 text-green-400 px-2 py-0.5 rounded-full">New</span>}
                                 </div>
                             </div>
@@ -81,12 +81,12 @@ export default function StudentDashboardHome() {
                 </motion.div>
 
                 {/* Upcoming Classes */}
-                <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5, delay: 0.4 }} className="glass rounded-3xl p-6 md:p-8 border border-white/5">
+                <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5, delay: 0.4 }} className="glass rounded-3xl p-6 md:p-8 border border-foreground/10 dark:border-white/5">
                     <div className="flex items-center justify-between mb-6">
-                        <h2 className="text-xl font-heading font-bold text-white">Today&apos;s Schedule</h2>
-                        <span className="text-sm font-semibold text-gray-400">Wednesday</span>
+                        <h2 className="text-xl font-heading font-bold text-foreground dark:text-white">Today&apos;s Schedule</h2>
+                        <span className="text-sm font-semibold text-foreground/60 dark:text-gray-400">Wednesday</span>
                     </div>
-                    <div className="space-y-4 relative before:absolute before:inset-y-0 before:left-3 before:w-px before:bg-white/10">
+                    <div className="space-y-4 relative before:absolute before:inset-y-0 before:left-3 before:w-px before:bg-foreground/10 dark:bg-white/10">
                         {[
                             { time: "09:00 AM", subj: "Mathematics", teacher: "Mr. Rafiqul Islam", status: "completed" },
                             { time: "10:30 AM", subj: "Physics", teacher: "Ms. Salma Begum", status: "ongoing" },
@@ -95,10 +95,10 @@ export default function StudentDashboardHome() {
                             <div key={i} className="relative pl-8 pb-4 last:pb-0">
                                 <span className={`absolute left-[9px] top-1.5 w-2.5 h-2.5 rounded-full border-2 border-background ${cls.status === 'completed' ? 'bg-gray-500' : cls.status === 'ongoing' ? 'bg-brand-pink animate-pulse' : 'bg-brand-purple'
                                     }`} />
-                                <div className="bg-black/40 p-4 rounded-xl border border-white/5">
+                                <div className="bg-foreground/5 dark:bg-background/40 p-4 rounded-xl border border-foreground/10 dark:border-white/5">
                                     <p className="text-xs text-brand-pink font-bold mb-1">{cls.time}</p>
-                                    <h4 className="text-white font-bold mb-1">{cls.subj}</h4>
-                                    <p className="text-xs text-gray-400">{cls.teacher}</p>
+                                    <h4 className="text-foreground dark:text-white font-bold mb-1">{cls.subj}</h4>
+                                    <p className="text-xs text-foreground/60 dark:text-gray-400">{cls.teacher}</p>
                                 </div>
                             </div>
                         ))}

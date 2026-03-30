@@ -20,13 +20,35 @@ router.post("/login", async (req: Request, res: Response): Promise<void> => {
             return;
         }
 
-        const user = await db.user.findUnique({
-            where: { email: String(email).toLowerCase().trim() },
+        const rawLogin = String(email).trim();
+        const normalizedEmail = rawLogin.toLowerCase();
+
+        let user = await db.user.findUnique({
+            where: { email: normalizedEmail },
             include: {
                 studentProfile: { select: { id: true } },
                 teacherProfile: { select: { id: true } },
             },
         });
+
+        // Students may sign in with roll number if it is unique in the database
+        if (!user && /^\d+$/.test(rawLogin)) {
+            const rollNo = parseInt(rawLogin, 10);
+            const student = await db.student.findFirst({
+                where: { rollNo },
+                include: {
+                    user: {
+                        include: {
+                            studentProfile: { select: { id: true } },
+                            teacherProfile: { select: { id: true } },
+                        },
+                    },
+                },
+            });
+            if (student?.user) {
+                user = student.user;
+            }
+        }
 
         if (!user) {
             res.status(401).json({ success: false, error: "Invalid credentials." });

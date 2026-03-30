@@ -1,0 +1,25 @@
+# Render Blueprint — Express API (Neon PostgreSQL + Vercel frontend)
+# ড্যাশবোর্ড থেকে “New Blueprint” দিয়ে এই রিপো লিঙ্ক করলে সার্ভিস তৈরি হয়।
+# আগে Neon এ DATABASE_URL, তারপর Render → Environment এ সব ভেরিয়েবল যোগ করুন।
+
+services:
+  - type: web
+    name: schoolspace-api
+    runtime: node
+    region: oregon
+    plan: free
+    rootDir: backend
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    healthCheckPath: /
+    envVars:
+      - key: NODE_VERSION
+        value: "20"
+      - key: DATABASE_URL
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: FRONTEND_URL
+        sync: false
+        # উদাহরণ: https://your-app.vercel.app (একাধিক হলে কমা দিয়ে)
+      # PORT Render নিজে দেয় — manually set করবেন না

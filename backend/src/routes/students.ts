@@ -9,6 +9,7 @@ import { Router, Request, Response } from "express";
 import { db } from "../lib/db";
 import { hashPassword, ROLES } from "../lib/auth";
 import { authenticate, requireRole } from "../middleware/auth";
+import { upload } from "../lib/upload";
 
 const router = Router();
 
@@ -32,10 +33,15 @@ router.get("/", authenticate, requireRole(ROLES.ADMIN, ROLES.TEACHER), async (_r
     }
 });
 
-// POST /api/students
-router.post("/", authenticate, requireRole(ROLES.ADMIN), async (req: Request, res: Response): Promise<void> => {
+// POST /api/students — Support photo upload
+router.post("/", authenticate, requireRole(ROLES.ADMIN), upload.single("image"), async (req: Request, res: Response): Promise<void> => {
     try {
         const { name, email, password, phone, rollNo, sectionId } = req.body;
+        let avatar = req.body.avatar;
+
+        if (req.file) {
+            avatar = `/uploads/${req.file.filename}`;
+        }
 
         if (!name || !email || !password || !rollNo || !sectionId) {
             res.status(400).json({ success: false, error: "Missing required fields: name, email, password, rollNo, sectionId." });
@@ -65,6 +71,7 @@ router.post("/", authenticate, requireRole(ROLES.ADMIN), async (req: Request, re
                 password: hashedPw,
                 role: ROLES.STUDENT,
                 phone: phone ? String(phone) : null,
+                avatar: avatar ? String(avatar) : null,
                 studentProfile: {
                     create: { rollNo: Number(rollNo), sectionId: String(sectionId) },
                 },
@@ -83,11 +90,16 @@ router.post("/", authenticate, requireRole(ROLES.ADMIN), async (req: Request, re
     }
 });
 
-// PUT /api/students/:id
-router.put("/:id", authenticate, requireRole(ROLES.ADMIN), async (req: Request, res: Response): Promise<void> => {
+// PUT /api/students/:id — Support photo upload
+router.put("/:id", authenticate, requireRole(ROLES.ADMIN), upload.single("image"), async (req: Request, res: Response): Promise<void> => {
     try {
         const { id } = req.params;
         const { name, email, password, phone, rollNo, sectionId } = req.body;
+        let avatar = req.body.avatar;
+
+        if (req.file) {
+            avatar = `/uploads/${req.file.filename}`;
+        }
 
         const student = await db.student.findUnique({ where: { id: String(id) }, include: { user: true } });
         if (!student) {
@@ -110,6 +122,7 @@ router.put("/:id", authenticate, requireRole(ROLES.ADMIN), async (req: Request, 
         }
         if (password) userUpdate.password = await hashPassword(String(password));
         if (phone !== undefined) userUpdate.phone = phone ? String(phone) : null;
+        if (avatar !== undefined) userUpdate.avatar = avatar ? String(avatar) : null;
 
         const profileUpdate: any = {};
         if (rollNo !== undefined) profileUpdate.rollNo = Number(rollNo);

@@ -73,13 +73,13 @@ export default function NoticesPage() {
                     </motion.div>
                     <motion.h1
                         initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
-                        className="text-4xl md:text-6xl font-heading font-extrabold text-white"
+                        className="text-4xl md:text-6xl font-heading font-extrabold text-foreground dark:text-white"
                     >
                         Notices & <span className="text-gradient">Announcements</span>
                     </motion.h1>
                     <motion.p
                         initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
-                        className="text-gray-400 text-lg max-w-2xl mx-auto font-bangla"
+                        className="text-foreground/60 dark:text-gray-400 text-lg max-w-2xl mx-auto font-bangla"
                     >
                         মহিষাবান এম আলিম মাদরাসার সকল প্রাতিষ্ঠানিক ও একাডেমিক খবরাখবর এবং জরুরি নোটিশসমূহ এখানে পাবেন।
                     </motion.p>
@@ -87,13 +87,13 @@ export default function NoticesPage() {
 
                 {/* Search Bar */}
                 <div className="relative max-w-2xl mx-auto">
-                    <Search className="absolute left-6 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500 pointer-events-none" />
+                    <Search className="absolute left-6 top-1/2 -translate-y-1/2 w-5 h-5 text-foreground/50 dark:text-gray-500 pointer-events-none" />
                     <input
                         type="text"
                         placeholder="Search for notices, exams, or holidays..."
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                        className="w-full bg-white/5 border border-white/10 rounded-3xl py-5 pl-14 pr-8 text-white text-lg focus:outline-none focus:border-brand-pink transition-all backdrop-blur-md shadow-2xl"
+                        className="w-full bg-foreground/5 dark:bg-white/5 border border-foreground/15 dark:border-white/10 rounded-3xl py-5 pl-14 pr-8 text-foreground dark:text-white text-lg focus:outline-none focus:border-brand-pink transition-all backdrop-blur-md shadow-2xl"
                     />
                 </div>
 
@@ -102,7 +102,7 @@ export default function NoticesPage() {
                     {isLoading ? (
                         <div className="flex flex-col items-center justify-center py-20 gap-4">
                             <Loader2 className="w-10 h-10 text-brand-purple animate-spin" />
-                            <p className="text-gray-400 font-medium font-bangla">নোটিশ লোড হচ্ছে...</p>
+                            <p className="text-foreground/60 dark:text-gray-400 font-medium font-bangla">নোটিশ লোড হচ্ছে...</p>
                         </div>
                     ) : filteredNotices.length > 0 ? (
                         filteredNotices.map((notice, i) => (
@@ -111,7 +111,7 @@ export default function NoticesPage() {
                                 initial={{ opacity: 0, x: -20 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ delay: i * 0.1 }}
-                                className="group glass p-6 md:p-8 rounded-[2rem] border border-white/5 hover:border-brand-purple/30 transition-all duration-500 relative overflow-hidden"
+                                className="group glass p-6 md:p-8 rounded-[2rem] border border-foreground/10 dark:border-white/5 hover:border-brand-purple/30 transition-all duration-500 relative overflow-hidden"
                             >
                                 <div className="absolute top-0 right-0 w-32 h-32 bg-brand-purple/5 blur-[50px] -z-10 group-hover:bg-brand-purple/10 transition-colors" />
 
@@ -122,7 +122,7 @@ export default function NoticesPage() {
                                                 {getTypeIcon(notice.type)}
                                                 {notice.type}
                                             </span>
-                                            <span className="text-gray-500 text-xs font-medium flex items-center gap-1.5">
+                                            <span className="text-foreground/50 dark:text-gray-500 text-xs font-medium flex items-center gap-1.5">
                                                 <Calendar className="w-3.5 h-3.5" />
                                                 {new Date(notice.createdAt).toLocaleDateString("en-US", {
                                                     day: "numeric",
@@ -132,36 +132,43 @@ export default function NoticesPage() {
                                             </span>
                                         </div>
                                         <div>
-                                            <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-brand-purple transition-colors">
+                                            <h3 className="text-2xl font-bold text-foreground dark:text-white mb-3 group-hover:text-brand-purple transition-colors">
                                                 {notice.title}
                                             </h3>
-                                            <p className="text-gray-400 leading-relaxed font-bangla whitespace-pre-wrap">
+                                            <p className="text-foreground/60 dark:text-gray-400 leading-relaxed font-bangla whitespace-pre-wrap">
                                                 {notice.content}
                                             </p>
                                         </div>
                                     </div>
 
                                     <div className="flex items-start">
-                                        <button className="p-4 rounded-2xl bg-white/5 text-gray-400 group-hover:bg-brand-purple group-hover:text-white transition-all duration-300 transform group-hover:translate-x-1 shadow-xl">
+                                        <button aria-label="Open notice" className="p-4 rounded-2xl bg-foreground/5 dark:bg-white/5 text-foreground/60 dark:text-gray-400 group-hover:bg-brand-purple group-hover:text-white transition-all duration-300 transform group-hover:translate-x-1 shadow-xl">
                                             <ChevronRight className="w-6 h-6" />
                                         </button>
                                     </div>
                                 </div>
                             </motion.div>
                         ))
+                    ) : filteredNotices.length === 0 ? (
+                        <div className="flex flex-col items-center justify-center py-20 gap-3">
+                            <Bell className="w-12 h-12 text-gray-600" />
+                            <p className="text-foreground/60 dark:text-gray-400 font-bangla text-base">
+                                বর্তমানে কোনো নোটিশ পাওয়া যায়নি। Admin panel থেকে নতুন নোটিশ যোগ করুন।
+                            </p>
+                        </div>
                     ) : (
-                        <div className="text-center py-20 bg-white/5 rounded-[2.5rem] border border-dashed border-white/10">
-                            <div className="p-6 rounded-full bg-white/5 inline-block mb-4">
+                        <div className="text-center py-20 bg-foreground/5 dark:bg-white/5 rounded-[2.5rem] border border-dashed border-foreground/15 dark:border-white/10">
+                            <div className="p-6 rounded-full bg-foreground/5 dark:bg-white/5 inline-block mb-4">
                                 <FileText className="w-12 h-12 text-gray-700" />
                             </div>
-                            <p className="text-gray-500 text-lg font-bangla">বর্তমানে কোনো নোটিশ পাওয়া যায়নি।</p>
+                            <p className="text-foreground/50 dark:text-gray-500 text-lg font-bangla">বর্তমানে কোনো নোটিশ পাওয়া যায়নি।</p>
                         </div>
                     )}
                 </div>
 
                 {/* Archive Button */}
                 <div className="text-center">
-                    <button className="px-8 py-4 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 text-white font-bold transition-all flex items-center gap-3 mx-auto group">
+                    <button className="px-8 py-4 rounded-2xl bg-foreground/5 dark:bg-white/5 hover:bg-foreground/10 dark:bg-white/10 border border-foreground/15 dark:border-white/10 text-foreground dark:text-white font-bold transition-all flex items-center gap-3 mx-auto group">
                         View Notice Archive
                         <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                     </button>
