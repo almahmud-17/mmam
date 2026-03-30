@@ -475,13 +475,13 @@ function LeadershipSection({ fadeIn }: LeadershipSectionProps) {
 
 function PreFooterSection() {
   const importantLinks = [
-    { title: "বাংলাদেশ মাদ্রাসা শিক্ষা বোর্ড", url: "#" },
-    { title: "বাংলাদেশ শিক্ষাতথ্য ও পরিসংখ্যান ব্যুরো (ব্যানবেইস)", url: "#" },
-    { title: "ইসলামি বিশ্ববিদ্যালয়", url: "#" },
-    { title: "ইসলামি আরবি বিশ্ববিদ্যালয়", url: "#" },
-    { title: "মাদ্রাসা শিক্ষা অধিদপ্তর", url: "#" },
-    { title: "শিক্ষা মন্ত্রণালয়", url: "#" },
-    { title: "শিক্ষক বাতায়ন", url: "#" },
+    { title: "বাংলাদেশ মাদ্রাসা শিক্ষা বোর্ড", url: "http://www.bmeb.gov.bd" },
+    { title: "বাংলাদেশ শিক্ষাতথ্য ও পরিসংখ্যান ব্যুরো (ব্যানবেইস)", url: "http://www.banbeis.gov.bd" },
+    { title: "ইসলামি বিশ্ববিদ্যালয়", url: "https://iu.ac.bd" },
+    { title: "ইসলামি আরবি বিশ্ববিদ্যালয়", url: "http://www.iau.edu.bd" },
+    { title: "মাদ্রাসা শিক্ষা অধিদপ্তর", url: "http://www.dme.gov.bd" },
+    { title: "শিক্ষা মন্ত্রণালয়", url: "http://www.moedu.gov.bd" },
+    { title: "শিক্ষক বাতায়ন", url: "https://www.teachers.gov.bd" },
   ];
 
   return (
@@ -559,6 +559,8 @@ function PreFooterSection() {
                 whileHover={{ scale: 1.02, x: 5 }}
                 whileTap={{ scale: 0.98 }}
                 href={link.url}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="bg-[#005B60] hover:bg-[#004b4f] dark:bg-[#004D40]/80 dark:hover:bg-[#004D40] text-white py-3.5 px-4 rounded-xl text-center font-bold text-sm shadow-sm transition-all shadow-black/20"
                 style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}
               >
