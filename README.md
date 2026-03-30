@@ -75,7 +75,7 @@ schoolproject/
    ```bash
    cd backend
    npm install
-   npm run dev # API চলবে http://localhost:5000 এ
+   npm run dev # API চলবে http://localhost:5001 এ
    ```
 
 ---
@@ -91,3 +91,4 @@ schoolproject/
 ---
 
 *Made with ❤️ by almahmud_17 — Designed for Excellence.*
+[90m # mmam
