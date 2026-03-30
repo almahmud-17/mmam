@@ -26,6 +26,9 @@ async function main() {
     await prisma.user.deleteMany();
     await prisma.section.deleteMany();
     await prisma.class.deleteMany();
+    await prisma.siteStat.deleteMany();
+    await prisma.galleryItem.deleteMany();
+    await prisma.staffProfile.deleteMany();
 
     console.log("🗑️  Cleared existing data");
 
@@ -51,10 +54,10 @@ async function main() {
     // Teacher
     const teacherUser = await prisma.user.create({
         data: {
-            email: "rafiqul@school.com",
+            email: "taznurul@teacher.com",
             password: hashedPassword,
             role: "TEACHER",
-            name: "Rafiqul Islam",
+            name: "A H M Taznorul Islam",
             phone: "01711000001",
         },
     });
@@ -62,10 +65,10 @@ async function main() {
     // Student
     const studentUser = await prisma.user.create({
         data: {
-            email: "john@school.com",
+            email: "mahmud@student.com",
             password: hashedPassword,
             role: "STUDENT",
-            name: "John Doe",
+            name: "Al Mahmud",
         },
     });
 
