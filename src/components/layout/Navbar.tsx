@@ -68,10 +68,10 @@ export default function Navbar() {
                         
                         {/* Codes & Info */}
                         <div className="text-[10px] md:text-xs font-semibold text-foreground/70 flex flex-wrap justify-center gap-y-1 gap-x-2 md:gap-x-3 px-2">
-                            <span className="font-bold text-foreground whitespace-nowrap">EIIN: 123456</span> <span className="hidden md:inline">|</span> 
-                            <span className="whitespace-nowrap">কেন্দ্র কোড : ১৩০</span> <span className="hidden md:inline">|</span> 
-                            <span className="whitespace-nowrap">মাদ্রাসা কোড : ১১২৪৬</span> <span className="hidden md:inline">|</span> 
-                            <span className="text-brand-pink whitespace-nowrap">Hotline : 09617880099</span> <span className="hidden md:inline">|</span> 
+                            <span className="font-bold text-foreground whitespace-nowrap">EIIN: 119521</span> <span className="hidden md:inline">|</span> 
+                            <span className="whitespace-nowrap"> প্রতিষ্ঠিত: ১৯৩৮ </span> <span className="hidden md:inline">|</span> 
+                            <span className="whitespace-nowrap">মাদ্রাসা কোড : 13793 </span> <span className="hidden md:inline">|</span> 
+                            <span className="text-brand-pink whitespace-nowrap">Helpline : 01724628143 </span> <span className="hidden md:inline">|</span> 
                             <span className="text-brand-green whitespace-nowrap">Office Time: 8:00 AM - 5:00 PM</span>
                         </div>
                     </div>
