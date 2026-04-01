@@ -84,7 +84,7 @@ export default function FacultiesPage() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search by name or subject..."
-                className="w-full bg-white dark:bg-card border-none rounded-full py-4 pl-12 pr-6 text-sm shadow-md ring-1 ring-border focus:ring-2 focus:ring-brand-purple focus:outline-none transition-all"
+                className="w-full bg-white dark:bg-card border-none rounded-full py-4 pl-12 pr-6 text-sm text-foreground placeholder:text-foreground/40 shadow-md ring-1 ring-border focus:ring-2 focus:ring-brand-purple focus:outline-none transition-all"
               />
             </div>
           </div>
