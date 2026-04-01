@@ -22,23 +22,21 @@ export default function Navbar() {
 
     return (
         <header
-            className={`w-full sticky top-0 z-50 transition-[background-color,box-shadow,border-color,backdrop-filter] duration-500 ease-[cubic-bezier(0.25,0.1,0.25,1)] ${
-                isScrolled
+            className={`w-full sticky top-0 z-50 transition-[background-color,box-shadow,border-color,backdrop-filter] duration-500 ease-[cubic-bezier(0.25,0.1,0.25,1)] ${isScrolled
                     ? "border-b border-foreground/[0.08] bg-background/65 shadow-[0_8px_40px_-12px_rgba(0,0,0,0.14)] ring-1 ring-inset ring-white/15 backdrop-blur-3xl backdrop-saturate-150 dark:bg-background/50 dark:shadow-[0_8px_48px_-12px_rgba(0,0,0,0.55)] dark:ring-white/10 supports-[backdrop-filter]:bg-background/55 dark:supports-[backdrop-filter]:bg-background/40"
                     : "border-b border-transparent bg-card shadow-none"
-            }`}
+                }`}
         >
             {/* Top Banner Section */}
             <div
-                className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 transition-[padding] duration-500 ease-[cubic-bezier(0.25,0.1,0.25,1)] ${
-                    isScrolled ? "py-3 md:py-4" : "py-6"
-                }`}
+                className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 transition-[padding] duration-500 ease-[cubic-bezier(0.25,0.1,0.25,1)] ${isScrolled ? "py-3 md:py-4" : "py-6"
+                    }`}
             >
                 <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-                    
+
                     {/* Left: Logo */}
                     <Link href="/" className="flex items-center gap-3 shrink-0 group">
-                        <motion.div 
+                        <motion.div
                             whileHover={{ rotate: 5, scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                             className="bg-gradient-to-tr from-brand-pink to-brand-purple p-3 md:p-4 rounded-2xl md:rounded-3xl shadow-lg group-hover:shadow-brand-pink/20 transition-all duration-300"
@@ -65,14 +63,14 @@ export default function Navbar() {
                         <p className="text-xs md:text-sm font-medium text-foreground/80 mb-3">
                             Mohishaban, Gabtali, Bogura
                         </p>
-                        
+
                         {/* Codes & Info */}
                         <div className="text-[10px] md:text-xs font-semibold text-foreground/70 flex flex-wrap justify-center gap-y-1 gap-x-2 md:gap-x-3 px-2">
-                            <span className="font-bold text-foreground whitespace-nowrap">EIIN: 123456</span> <span className="hidden md:inline">|</span> 
-                            <span className="whitespace-nowrap">কেন্দ্র কোড : ১৩০</span> <span className="hidden md:inline">|</span> 
-                            <span className="whitespace-nowrap">মাদ্রাসা কোড : ১১২৪৬</span> <span className="hidden md:inline">|</span> 
-                            <span className="text-brand-pink whitespace-nowrap">Hotline : 09617880099</span> <span className="hidden md:inline">|</span> 
-                            <span className="text-brand-green whitespace-nowrap">Office Time: 8:00 AM - 5:00 PM</span>
+                            <span className="font-bold text-foreground whitespace-nowrap">EIIN: 119521</span> <span className="hidden md:inline">|</span>
+                            <span className="whitespace-nowrap">প্রতিষ্ঠিত : ১৯৩৮</span> <span className="hidden md:inline">|</span>
+                            <span className="whitespace-nowrap">মাদ্রাসা কোড : ১১২৪৬</span> <span className="hidden md:inline">|</span>
+                            <span className="text-brand-pink whitespace-nowrap">Helpline: 01714923634 </span> <span className="hidden md:inline">|</span>
+                            <span className="text-brand-green whitespace-nowrap">Office Time: 9:00 AM - 5:00 PM</span>
                         </div>
                     </div>
 
@@ -97,7 +95,7 @@ export default function Navbar() {
                 <nav className="w-full bg-transparent py-0 transition-colors duration-300 ease-out">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="flex items-center justify-center md:justify-between h-14">
-                            
+
                             {/* Links with scrolling visual aid */}
                             <div className="relative flex-1 overflow-hidden group/nav">
                                 <div className="flex items-center justify-center gap-4 md:gap-8 overflow-x-auto whitespace-nowrap scrollbar-hide pr-8 font-bangla text-sm">
@@ -111,8 +109,8 @@ export default function Navbar() {
                                         { label: "যোগাযোগ", href: "/contact" },
                                         { label: "বই", href: "/books" },
                                     ].map((link) => (
-                                        <motion.div 
-                                            key={link.href} 
+                                        <motion.div
+                                            key={link.href}
                                             whileHover={{ y: -2 }}
                                             transition={{ type: "spring", stiffness: 400, damping: 10 }}
                                         >
@@ -132,12 +130,12 @@ export default function Navbar() {
                                 <ThemeToggle />
                                 <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="hidden xs:block">
                                     <Link href="/login" className="flex items-center gap-1.5 md:gap-2 text-sm font-bold font-bangla text-foreground/80 hover:text-brand-pink transition-colors duration-300 ease-out whitespace-nowrap">
-                                        <LogIn className="w-4 h-4 md:w-5 md:h-5" /> 
+                                        <LogIn className="w-4 h-4 md:w-5 md:h-5" />
                                         <span className="hidden sm:inline">লগইন</span>
                                     </Link>
                                 </motion.div>
                             </div>
-                            
+
                         </div>
                     </div>
                 </nav>

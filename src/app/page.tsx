@@ -644,7 +644,7 @@ function PreFooterSection() {
               Contact Office
             </h3>
 
-            <p className="text-center font-bold text-lg mb-6 py-2 bg-foreground/5 dark:bg-white/5 rounded-xl text-[var(--pre-footer-text-heading)]">Hotline : 09617880099</p>
+            <p className="text-center font-bold text-lg mb-6 py-2 bg-foreground/5 dark:bg-white/5 rounded-xl text-[var(--pre-footer-text-heading)]">Helpline : 01720413861</p>
 
             <div className="grid grid-cols-2 gap-y-3 gap-x-3 text-[10px] sm:text-xs font-bold text-[var(--pre-footer-text-primary)]">
               {[
@@ -665,7 +665,7 @@ function PreFooterSection() {
             </div>
 
             <div className="mt-8 text-center text-xs sm:text-sm font-bold">
-              <p className="text-[var(--pre-footer-text-heading)] opacity-80 decoration-brand-green/30 underline underline-offset-4">Office Time: 8:00 AM - 5:00 PM</p>
+              <p className="text-[var(--pre-footer-text-heading)] opacity-80 decoration-brand-green/30 underline underline-offset-4">24/7 support</p>
               <p className="text-red-500 mt-2">(সাপ্তাহিক/সরকারি ছুটি ব্যতীত)</p>
             </div>
           </div>
