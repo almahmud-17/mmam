@@ -6,16 +6,16 @@ import { SectionTitle } from "@/components/ui/SectionTitle";
 
 export default function BooksPage() {
   const books = [
-    { class: "১ম শ্রেণি (ইবতেদায়ী)", level: "Primary", link: "http://nctb.gov.bd/site/page/f4f5f6e7-6e3e-424a-bc95-cd3df96e1ac5", icon: BookOpen },
-    { class: "২য় শ্রেণি (ইবতেদায়ী)", level: "Primary", link: "http://nctb.gov.bd/site/page/f4f5f6e7-6e3e-424a-bc95-cd3df96e1ac5", icon: BookOpen },
-    { class: "৩য় শ্রেণি (ইবতেদায়ী)", level: "Primary", link: "http://nctb.gov.bd/site/page/f4f5f6e7-6e3e-424a-bc95-cd3df96e1ac5", icon: BookOpen },
-    { class: "৪র্থ শ্রেণি (ইবতেদায়ী)", level: "Primary", link: "http://nctb.gov.bd/site/page/f4f5f6e7-6e3e-424a-bc95-cd3df96e1ac5", icon: BookOpen },
-    { class: "৫ম শ্রেণি (ইবতেদায়ী)", level: "Primary", link: "http://nctb.gov.bd/site/page/f4f5f6e7-6e3e-424a-bc95-cd3df96e1ac5", icon: BookOpen },
-    { class: "৬ষ্ঠ শ্রেণি (দাখিল)", level: "Secondary", link: "http://nctb.gov.bd/site/page/26e95bf6-b5eb-420a-9d6f-78c66e4a2cdb", icon: GraduationCap },
-    { class: "৭ম শ্রেণি (দাখিল)", level: "Secondary", link: "http://nctb.gov.bd/site/page/26e95bf6-b5eb-420a-9d6f-78c66e4a2cdb", icon: GraduationCap },
-    { class: "৮ম শ্রেণি (দাখিল)", level: "Secondary", link: "http://nctb.gov.bd/site/page/26e95bf6-b5eb-420a-9d6f-78c66e4a2cdb", icon: GraduationCap },
-    { class: "৯ম ও ১০ম শ্রেণি (দাখিল)", level: "Secondary", link: "http://nctb.gov.bd/site/page/26e95bf6-b5eb-420a-9d6f-78c66e4a2cdb", icon: GraduationCap },
-    { class: "একাদশ শ্রেণি (আলিম)", level: "Higher Secondary", link: "http://nctb.gov.bd/site/page/26e95bf6-b5eb-420a-9d6f-78c66e4a2cdb", icon: BookOpen },
+    { class: "১ম শ্রেণি (ইবতেদায়ী)", level: "Primary", link: "http://nctb.gov.bd/pages/static-pages/695b9b29c4774958d7b70995", icon: BookOpen },
+    { class: "২য় শ্রেণি (ইবতেদায়ী)", level: "Primary", link: "http://nctb.gov.bd/pages/static-pages/695b9b74c4774958d7b70a09", icon: BookOpen },
+    { class: "৩য় শ্রেণি (ইবতেদায়ী)", level: "Primary", link: "http://nctb.gov.bd/pages/static-pages/695b9b86c4774958d7b70a25", icon: BookOpen },
+    { class: "৪র্থ শ্রেণি (ইবতেদায়ী)", level: "Primary", link: "http://nctb.gov.bd/pages/static-pages/695b98d5c4774958d7b70484", icon: BookOpen },
+    { class: "৫ম শ্রেণি (ইবতেদায়ী)", level: "Primary", link: "http://nctb.gov.bd/pages/static-pages/695b99eec4774958d7b706d9", icon: BookOpen },
+    { class: "৬ষ্ঠ শ্রেণি (দাখিল)", level: "Secondary", link: "http://nctb.gov.bd/pages/static-pages/695b992bc4774958d7b704fd", icon: GraduationCap },
+    { class: "৭ম শ্রেণি (দাখিল)", level: "Secondary", link: "http://nctb.gov.bd/pages/static-pages/695b9aadc4774958d7b70849", icon: GraduationCap },
+    { class: "৮ম শ্রেণি (দাখিল)", level: "Secondary", link: "http://nctb.gov.bd/pages/static-pages/695b9900c4774958d7b704c2", icon: GraduationCap },
+    { class: "৯ম ও ১০ম শ্রেণি (দাখিল)", level: "Secondary", link: "http://nctb.gov.bd/pages/static-pages/695b9a12c4774958d7b7071d", icon: GraduationCap },
+    { class: "একাদশ ও দ্বাদশ শ্রেণি (আলিম)", level: "Higher Secondary", link: "http://nctb.gov.bd/pages/static-pages/6922e145933eb65569e2b37b", icon: BookOpen },
   ];
 
   const containerVariants = {
