@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { Search, Plus, MoreVertical, Edit2, Trash2, X, User, Mail, Phone, BookOpen, GraduationCap, Lock, Loader2 } from "lucide-react";
+import { Search, Plus, MoreVertical, Edit2, Trash2, X, User, Mail, Phone, BookOpen, GraduationCap, Lock, Loader2, Star } from "lucide-react";
 import { useState, useEffect } from "react";
 
 interface Teacher {
@@ -11,6 +11,7 @@ interface Teacher {
     bio?: string | null;
     qualifications?: string | null;
     experience?: string | null;
+    isFeatured?: boolean;
     user: {
         id: string;
         name: string;
@@ -145,6 +146,29 @@ export default function AdminTeachersPage() {
                 fetchTeachers();
             } else {
                 alert(data.error || "Failed to delete.");
+            }
+        } catch (err) {
+            console.error(err);
+            alert("Network error.");
+        }
+    };
+
+    const handleToggleFeatured = async (teacherId: string) => {
+        try {
+            const token = localStorage.getItem("token");
+            const response = await fetch(`${API_BASE_URL}/api/teachers/${teacherId}/featured`, {
+                method: "PUT",
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                },
+            });
+            const data = await response.json();
+            if (data.success) {
+                setTeachers(prev =>
+                    prev.map(t => t.id === teacherId ? { ...t, isFeatured: data.data.isFeatured } : t)
+                );
+            } else {
+                alert(data.error || "Failed to toggle featured.");
             }
         } catch (err) {
             console.error(err);
@@ -293,6 +317,19 @@ export default function AdminTeachersPage() {
                                             <div className="flex items-center justify-end gap-2">
                                                 <button
                                                     type="button"
+                                                    aria-label={teacher.isFeatured ? "Remove from featured" : "Feature on homepage"}
+                                                    title={teacher.isFeatured ? "Remove from featured" : "Feature on homepage"}
+                                                    onClick={() => handleToggleFeatured(teacher.id)}
+                                                    className={`p-2 rounded-lg transition-colors border ${
+                                                        teacher.isFeatured
+                                                            ? "text-yellow-500 bg-yellow-500/10 border-yellow-500/20 hover:bg-yellow-500/20"
+                                                            : "text-foreground/40 hover:text-yellow-500 bg-background/5 dark:bg-white/5 border-border hover:border-yellow-500/20"
+                                                    }`}
+                                                >
+                                                    <Star className={`w-4 h-4 ${teacher.isFeatured ? "fill-current" : ""}`} />
+                                                </button>
+                                                <button
+                                                    type="button"
                                                     aria-label="Edit teacher"
                                                     onClick={() => setEditingTeacher(teacher)}
                                                     className="p-2 text-foreground/40 hover:text-foreground bg-background/5 dark:bg-foreground/5 dark:bg-white/5 hover:bg-background/10 dark:hover:bg-foreground/10 dark:bg-white/10 rounded-lg transition-colors border border-border"
@@ -306,13 +343,6 @@ export default function AdminTeachersPage() {
                                                     className="p-2 text-foreground/40 hover:text-red-500 bg-background/5 dark:bg-red-500/10 rounded-lg transition-colors border border-border hover:border-red-500/20"
                                                 >
                                                     <Trash2 className="w-4 h-4" />
-                                                </button>
-                                                <button
-                                                    type="button"
-                                                    aria-label="More actions"
-                                                    className="p-2 text-foreground/50 dark:text-gray-500 hover:text-foreground dark:text-white transition-colors"
-                                                >
-                                                    <MoreVertical className="w-4 h-4" />
                                                 </button>
                                             </div>
                                         </td>

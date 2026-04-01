@@ -95,3 +95,61 @@ body {
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
+
+/* ─── Safari Compatibility Fixes ─────────────────────────────── */
+
+/* Safari flexbox fixes */
+@supports (-webkit-touch-callout: none) {
+  .flex {
+    display: -webkit-flex;
+    display: flex;
+  }
+
+  .inline-flex {
+    display: -webkit-inline-flex;
+    display: inline-flex;
+  }
+}
+
+/* Input & button appearance resets for Safari / iOS */
+input,
+textarea,
+select,
+button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+input[type="search"] {
+  -webkit-appearance: none;
+}
+
+/* Safari transform hardware acceleration */
+@utility safari-fix {
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+/* Ensure gradients render properly with GPU acceleration */
+@utility gpu-accelerated {
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+}
+
+/* Fix Safari sticky positioning */
+@supports (-webkit-touch-callout: none) {
+  .sticky {
+    position: -webkit-sticky;
+    position: sticky;
+  }
+}
+
+/* Prevent font inflation in landscape mode on iOS */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
