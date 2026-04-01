@@ -646,20 +646,22 @@ function PreFooterSection() {
 
             <p className="text-center font-bold text-lg mb-6 py-2 bg-foreground/5 dark:bg-white/5 rounded-xl text-[var(--pre-footer-text-heading)]">Hotline : 09617880099</p>
 
-            <div className="grid grid-cols-2 gap-y-4 gap-x-3 text-[10px] sm:text-xs font-bold text-[var(--pre-footer-text-primary)]">
-              <div className="flex items-center gap-1.5 justify-center bg-foreground/5 dark:bg-white/5 py-2 px-1 rounded-lg"><Phone className="w-3.5 h-3.5 text-[var(--pre-footer-icon)]" /> +8801550-706095</div>
-              <div className="flex items-center gap-1.5 justify-center bg-foreground/5 dark:bg-white/5 py-2 px-1 rounded-lg"><Phone className="w-3.5 h-3.5 text-[var(--pre-footer-icon)]" /> +8801550-706093</div>
-              <div className="flex items-center gap-1.5 justify-center bg-foreground/5 dark:bg-white/5 py-2 px-1 rounded-lg"><Phone className="w-3.5 h-3.5 text-[var(--pre-footer-icon)]" /> +8801550-725830</div>
-              <div className="flex items-center gap-1.5 justify-center bg-foreground/5 dark:bg-white/5 py-2 px-1 rounded-lg"><Phone className="w-3.5 h-3.5 text-[var(--pre-footer-icon)]" /> +8801778-425268</div>
-              <div className="flex items-center gap-1.5 justify-center bg-foreground/5 dark:bg-white/5 py-2 px-1 rounded-lg"><Phone className="w-3.5 h-3.5 text-[var(--pre-footer-icon)]" /> +8801576-710049</div>
-              <div className="flex items-center gap-1.5 justify-center bg-foreground/5 dark:bg-white/5 py-2 px-1 rounded-lg text-center leading-tight">
-                <Phone className="w-3.5 h-3.5 text-[var(--pre-footer-icon)] shrink-0" />
-                <span>+8801550-725826 <br className="hidden xs:block" />(হিফজ)</span>
-              </div>
-              <div className="flex items-center gap-1.5 justify-center bg-foreground/5 dark:bg-white/5 py-2 px-1 rounded-lg"><Phone className="w-3.5 h-3.5 text-[var(--pre-footer-icon)]" /> 09617880099</div>
-              <div className="flex items-center gap-1.5 justify-center bg-foreground/5 dark:bg-white/5 py-2 px-1 rounded-lg"><Phone className="w-3.5 h-3.5 text-[var(--pre-footer-icon)]" /> +8801550-725824</div>
-              <div className="flex items-center gap-1.5 justify-center bg-foreground/5 dark:bg-white/5 py-2 px-1 rounded-lg"><Phone className="w-3.5 h-3.5 text-[var(--pre-footer-icon)]" /> +8801550-706094</div>
-              <div className="flex items-center gap-1.5 justify-center bg-foreground/5 dark:bg-white/5 py-2 px-1 rounded-lg"><Phone className="w-3.5 h-3.5 text-[var(--pre-footer-icon)]" /> +8801550-725825</div>
+            <div className="grid grid-cols-2 gap-y-3 gap-x-3 text-[10px] sm:text-xs font-bold text-[var(--pre-footer-text-primary)]">
+              {[
+                "+880 1725-674451", "+880 1734-441479",
+                "+880 1711-423997", "+880 1724-628143",
+                "+880 1743-274619", "+880 1714-622546",
+                "+880 1334-388255", "+880 1719-771383",
+                "+880 1763-192573", "+880 1538-415014",
+                "+880 1714-495723", "+880 1723-505566",
+                "+880 1731-355195", "+880 1735-046081",
+                "+880 1738-589796", "+880 1746-907760"
+              ].map((num, idx) => (
+                <div key={idx} className="flex flex-col sm:flex-row items-center gap-1 sm:gap-1.5 justify-center bg-foreground/5 dark:bg-white/5 py-2 px-1 rounded-lg text-center leading-tight hover:bg-foreground/10 dark:hover:bg-white/10 transition-colors">
+                  <Phone className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[var(--pre-footer-icon)] shrink-0" />
+                  <span className="whitespace-pre-wrap">{num.replace(": ", "\n")}</span>
+                </div>
+              ))}
             </div>
 
             <div className="mt-8 text-center text-xs sm:text-sm font-bold">
@@ -683,7 +685,7 @@ function PreFooterSection() {
                 href={link.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-[#005B60] hover:bg-[#004b4f] dark:bg-[#004D40]/80 dark:hover:bg-[#004D40] text-white py-3.5 px-4 rounded-xl text-center font-bold text-sm shadow-sm transition-all shadow-black/20"
+                className="bg-transparent border border-foreground/10 hover:border-foreground/30 hover:bg-foreground/5 dark:border-white/10 dark:hover:border-white/30 dark:hover:bg-white/5 text-[var(--pre-footer-text-primary)] group-hover:text-brand-purple py-3.5 px-4 rounded-xl text-center font-bold text-sm transition-all backdrop-blur-sm"
                 style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}
               >
                 {link.title}
