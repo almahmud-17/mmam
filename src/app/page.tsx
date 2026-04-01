@@ -487,7 +487,7 @@ function LeadershipSection({ fadeIn }: LeadershipSectionProps) {
           className="px-8 py-4 rounded-full text-sm font-bold text-white bg-gradient-to-r from-brand-pink to-brand-purple hover:neon-glow transition-all flex items-center gap-2 group"
         >
           <Users className="w-4 h-4" />
-          View Other Faculties
+          View Other Members
           <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
         </Link>
       </motion.div>
@@ -653,8 +653,8 @@ function PreFooterSection() {
               <div className="flex items-center gap-1.5 justify-center bg-foreground/5 dark:bg-white/5 py-2 px-1 rounded-lg"><Phone className="w-3.5 h-3.5 text-[var(--pre-footer-icon)]" /> +8801778-425268</div>
               <div className="flex items-center gap-1.5 justify-center bg-foreground/5 dark:bg-white/5 py-2 px-1 rounded-lg"><Phone className="w-3.5 h-3.5 text-[var(--pre-footer-icon)]" /> +8801576-710049</div>
               <div className="flex items-center gap-1.5 justify-center bg-foreground/5 dark:bg-white/5 py-2 px-1 rounded-lg text-center leading-tight">
-                <Phone className="w-3.5 h-3.5 text-[var(--pre-footer-icon)] shrink-0" /> 
-                <span>+8801550-725826 <br className="hidden xs:block"/>(হিফজ)</span>
+                <Phone className="w-3.5 h-3.5 text-[var(--pre-footer-icon)] shrink-0" />
+                <span>+8801550-725826 <br className="hidden xs:block" />(হিফজ)</span>
               </div>
               <div className="flex items-center gap-1.5 justify-center bg-foreground/5 dark:bg-white/5 py-2 px-1 rounded-lg"><Phone className="w-3.5 h-3.5 text-[var(--pre-footer-icon)]" /> 09617880099</div>
               <div className="flex items-center gap-1.5 justify-center bg-foreground/5 dark:bg-white/5 py-2 px-1 rounded-lg"><Phone className="w-3.5 h-3.5 text-[var(--pre-footer-icon)]" /> +8801550-725824</div>
@@ -676,7 +676,7 @@ function PreFooterSection() {
           </h3>
           <div className="flex flex-col gap-3">
             {importantLinks.map((link, idx) => (
-              <motion.a 
+              <motion.a
                 key={idx}
                 whileHover={{ scale: 1.02, x: 5 }}
                 whileTap={{ scale: 0.98 }}

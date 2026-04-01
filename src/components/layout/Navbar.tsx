@@ -109,6 +109,7 @@ export default function Navbar() {
                                         { label: "রুটিন", href: "/routine" },
                                         { label: "গ্যালারি", href: "/gallery" },
                                         { label: "যোগাযোগ", href: "/contact" },
+                                        { label: "বই", href: "/books" },
                                     ].map((link) => (
                                         <motion.div 
                                             key={link.href} 
