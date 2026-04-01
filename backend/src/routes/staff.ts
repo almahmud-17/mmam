@@ -55,7 +55,7 @@ router.post("/", authenticate, requireRole(ROLES.ADMIN), upload.single("image"),
     const isHead = String(req.body.isHead) === "true";
 
     if (req.file) {
-        imageUrl = `/uploads/${req.file.filename}`;
+        imageUrl = `data:${req.file.mimetype};base64,${req.file.buffer.toString("base64")}`;
     }
 
     const created = await db.staffProfile.create({
@@ -87,7 +87,7 @@ router.put("/:id", authenticate, requireRole(ROLES.ADMIN), upload.single("image"
     const isHead = String(req.body.isHead) === "true";
 
     if (req.file) {
-        imageUrl = `/uploads/${req.file.filename}`;
+        imageUrl = `data:${req.file.mimetype};base64,${req.file.buffer.toString("base64")}`;
     }
 
     const updated = await db.staffProfile.update({

@@ -97,7 +97,7 @@ router.post("/", authenticate, requireRole(ROLES.ADMIN), upload.single("image"),
     let photoUrl = req.body.photoUrl;
 
     if (req.file) {
-        photoUrl = `/uploads/${req.file.filename}`;
+        photoUrl = `data:${req.file.mimetype};base64,${req.file.buffer.toString("base64")}`;
     }
 
     const existing = await db.user.findUnique({ where: { email: String(email).toLowerCase().trim() } });
@@ -169,7 +169,7 @@ router.put("/:id", authenticate, requireRole(ROLES.ADMIN), upload.single("image"
     let photoUrl = req.body.photoUrl;
 
     if (req.file) {
-        photoUrl = `/uploads/${req.file.filename}`;
+        photoUrl = `data:${req.file.mimetype};base64,${req.file.buffer.toString("base64")}`;
     }
 
     const teacher = await db.teacher.findUnique({ where: { id: String(id) }, include: { user: true } });

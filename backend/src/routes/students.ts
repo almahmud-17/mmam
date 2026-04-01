@@ -54,7 +54,7 @@ router.post("/", authenticate, requireRole(ROLES.ADMIN), upload.single("image"),
     let avatar = req.body.avatar;
 
     if (req.file) {
-        avatar = `/uploads/${req.file.filename}`;
+        avatar = `data:${req.file.mimetype};base64,${req.file.buffer.toString("base64")}`;
     }
 
     const existing = await db.user.findUnique({ where: { email: String(email).toLowerCase().trim() } });
@@ -111,7 +111,7 @@ router.put("/:id", authenticate, requireRole(ROLES.ADMIN), upload.single("image"
     let avatar = req.body.avatar;
 
     if (req.file) {
-        avatar = `/uploads/${req.file.filename}`;
+        avatar = `data:${req.file.mimetype};base64,${req.file.buffer.toString("base64")}`;
     }
 
     const student = await db.student.findUnique({ where: { id: String(id) }, include: { user: true } });

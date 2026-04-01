@@ -8,15 +8,8 @@ if (!fs.existsSync(uploadDir)) {
     fs.mkdirSync(uploadDir, { recursive: true });
 }
 
-const storage = multer.diskStorage({
-    destination: (_req, _file, cb) => {
-        cb(null, uploadDir);
-    },
-    filename: (_req, file, cb) => {
-        const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-        cb(null, file.fieldname + "-" + uniqueSuffix + path.extname(file.originalname));
-    }
-});
+// Using memory storage for Base64 conversion (Serverless/Render support)
+const storage = multer.memoryStorage();
 
 const fileFilter = (_req: any, file: any, cb: any) => {
     const allowedTypes = /jpeg|jpg|png|gif|webp/;

@@ -555,7 +555,7 @@ function FeaturedTeachersSection({ fadeIn, staggerContainer }: FeaturedTeachersP
                 {teacher.photoUrl ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
-                    src={teacher.photoUrl.startsWith("http") ? teacher.photoUrl : `${API_BASE_URL}${teacher.photoUrl}`}
+                    src={teacher.photoUrl.startsWith("http") || teacher.photoUrl.startsWith("data:") ? teacher.photoUrl : `${API_BASE_URL}${teacher.photoUrl}`}
                     alt={teacher.user.name}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />

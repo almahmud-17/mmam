@@ -243,7 +243,7 @@ export default function AdminStudentsPage() {
                                                 <div className="w-10 h-10 rounded-full border-2 border-border p-0.5 overflow-hidden">
                                                     {student.user.avatar ? (
                                                         <img
-                                                            src={student.user.avatar.startsWith("http") ? student.user.avatar : `${API_BASE_URL}${student.user.avatar}`}
+                                                            src={student.user.avatar.startsWith("http") || student.user.avatar.startsWith("data:") ? student.user.avatar : `${API_BASE_URL}${student.user.avatar}`}
                                                             alt={student.user.name}
                                                             className="w-full h-full object-cover rounded-full"
                                                         />

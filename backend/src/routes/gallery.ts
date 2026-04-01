@@ -37,7 +37,7 @@ router.post("/", ...editorAuth, upload.single("image"), asyncHandler(async (req:
     let imageUrl = req.body.imageUrl;
 
     if (req.file) {
-        imageUrl = `/uploads/${req.file.filename}`;
+        imageUrl = `data:${req.file.mimetype};base64,${req.file.buffer.toString("base64")}`;
     }
 
     if (!title || !imageUrl) {
@@ -60,7 +60,7 @@ router.put("/:id", ...editorAuth, upload.single("image"), asyncHandler(async (re
     let imageUrl = req.body.imageUrl as string | undefined;
 
     if (req.file) {
-        imageUrl = `/uploads/${req.file.filename}`;
+        imageUrl = `data:${req.file.mimetype};base64,${req.file.buffer.toString("base64")}`;
     }
 
     const existing = await db.galleryItem.findUnique({ where: { id: String(id) } });

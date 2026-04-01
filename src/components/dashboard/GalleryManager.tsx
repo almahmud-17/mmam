@@ -137,7 +137,7 @@ export default function GalleryManager() {
               <div className="aspect-video relative overflow-hidden">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src={item.imageUrl.startsWith("http") ? item.imageUrl : `${API_BASE_URL}${item.imageUrl}`}
+                  src={item.imageUrl.startsWith("http") || item.imageUrl.startsWith("data:") ? item.imageUrl : `${API_BASE_URL}${item.imageUrl}`}
                   alt={item.title}
                   className="w-full h-full object-cover transition-transform group-hover:scale-110"
                 />

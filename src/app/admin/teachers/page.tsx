@@ -284,7 +284,7 @@ export default function AdminTeachersPage() {
                                                 <div className="w-full h-full bg-card rounded-full flex items-center justify-center text-xs font-bold border border-border overflow-hidden">
                                                     {teacher.photoUrl ? (
                                                         // eslint-disable-next-line @next/next/no-img-element
-                                                        <img src={teacher.photoUrl.startsWith("http") ? teacher.photoUrl : `${API_BASE_URL}${teacher.photoUrl}`} alt={teacher.user.name} className="w-full h-full object-cover" />
+                                                        <img src={teacher.photoUrl.startsWith("http") || teacher.photoUrl.startsWith("data:") ? teacher.photoUrl : `${API_BASE_URL}${teacher.photoUrl}`} alt={teacher.user.name} className="w-full h-full object-cover" />
                                                     ) : (
                                                         teacher.user.name.charAt(0)
                                                     )}
