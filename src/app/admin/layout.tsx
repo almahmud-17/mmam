@@ -14,6 +14,7 @@ import {
   Globe2,
   CalendarDays,
   CalendarRange,
+  KeyRound,
 } from "lucide-react";
 import { useEffect, useState } from "react";
 
@@ -42,9 +43,8 @@ export default function AdminLayout({
     { href: "/admin/routine", label: "Class Routine", icon: CalendarRange },
     { href: "/admin/website", label: "Website Content", icon: Globe2 },
     { href: "/admin/gallery", label: "Gallery Media", icon: ImageIcon },
-    { href: "/admin/classes", label: "Classes & Subjects", icon: Layers },
     { href: "/admin/messages", label: "Inquiries", icon: MessageSquare },
-    { href: "/admin/settings", label: "System Settings", icon: Settings },
+    { href: "/admin/settings", label: "Password Settings", icon: KeyRound },
   ];
 
   return (
