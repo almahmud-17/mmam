@@ -433,46 +433,65 @@ function LeadershipSection({ fadeIn }: LeadershipSectionProps) {
     ];
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-16">
-      {list.map((member) => (
-        <motion.div
-          key={member.id}
-          initial="hidden"
-          whileInView="visible"
-          whileHover={{ y: -5 }}
-          viewport={{ once: true }}
-          variants={fadeIn}
-          className="group cursor-pointer"
+    <>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-16">
+        {list.map((member) => (
+          <motion.div
+            key={member.id}
+            initial="hidden"
+            whileInView="visible"
+            whileHover={{ y: -5 }}
+            viewport={{ once: true }}
+            variants={fadeIn}
+            className="group cursor-pointer"
+          >
+            <a href={`/staff/${member.id}`} className="block">
+              <div className="aspect-[4/5] rounded-3xl bg-card overflow-hidden relative mb-4 border border-foreground/10">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity z-10 flex flex-col justify-end p-6">
+                  <span className="text-brand-pink text-sm font-bold tracking-wider uppercase mb-1">
+                    View Profile
+                  </span>
+                </div>
+                <div className="w-full h-full bg-foreground/5 flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
+                  {member.imageUrl ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={member.imageUrl}
+                      alt={member.name}
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <Users className="w-16 h-16 text-foreground/10" />
+                  )}
+                </div>
+              </div>
+              <h4 className="text-xl font-bold text-foreground font-heading">{member.name}</h4>
+              <p className="text-brand-purple text-sm font-medium">
+                {member.role}
+                {member.isHead ? " • Head of Institution" : ""}
+              </p>
+            </a>
+          </motion.div>
+        ))}
+      </div>
+
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={fadeIn}
+        className="mt-12 flex justify-center"
+      >
+        <Link
+          href="/faculties"
+          className="px-8 py-4 rounded-full text-sm font-bold text-white bg-gradient-to-r from-brand-pink to-brand-purple hover:neon-glow transition-all flex items-center gap-2 group"
         >
-          <a href={`/staff/${member.id}`} className="block">
-            <div className="aspect-[4/5] rounded-3xl bg-card overflow-hidden relative mb-4 border border-foreground/10">
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity z-10 flex flex-col justify-end p-6">
-                <span className="text-brand-pink text-sm font-bold tracking-wider uppercase mb-1">
-                  View Profile
-                </span>
-              </div>
-              <div className="w-full h-full bg-foreground/5 flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
-                {member.imageUrl ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    src={member.imageUrl}
-                    alt={member.name}
-                    className="w-full h-full object-cover"
-                  />
-                ) : (
-                  <Users className="w-16 h-16 text-foreground/10" />
-                )}
-              </div>
-            </div>
-            <h4 className="text-xl font-bold text-foreground font-heading">{member.name}</h4>
-            <p className="text-brand-purple text-sm font-medium">
-              {member.role}
-              {member.isHead ? " • Head of Institution" : ""}
-            </p>
-          </a>
-        </motion.div>
-      ))}
-    </div>
+          <Users className="w-4 h-4" />
+          View Other Faculties
+          <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+        </Link>
+      </motion.div>
+    </>
   );
 }
 

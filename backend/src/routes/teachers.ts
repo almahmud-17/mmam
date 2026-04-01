@@ -35,6 +35,32 @@ router.get("/featured", cacheMiddleware(300), asyncHandler(async (_req: Request,
     res.json({ success: true, data: teachers });
 }));
 
+// GET /api/teachers/public — PUBLIC endpoint for public faculties page
+router.get("/public", cacheMiddleware(300), asyncHandler(async (req: Request, res: Response): Promise<void> => {
+    const { take, skip } = paginate(req.query);
+
+    const [teachers, total] = await Promise.all([
+        db.teacher.findMany({
+            select: {
+                id: true,
+                specialization: true,
+                photoUrl: true,
+                bio: true,
+                qualifications: true,
+                experience: true,
+                user: {
+                    select: { id: true, name: true, email: true },
+                },
+            },
+            take,
+            skip,
+        }),
+        db.teacher.count(),
+    ]);
+
+    res.json({ success: true, data: teachers, pagination: { total, page: Math.floor(skip / take) + 1, limit: take } });
+}));
+
 // GET /api/teachers — paginated, admin only
 router.get("/", authenticate, requireRole(ROLES.ADMIN), cacheMiddleware(120), asyncHandler(async (req: Request, res: Response): Promise<void> => {
     const { take, skip } = paginate(req.query);
