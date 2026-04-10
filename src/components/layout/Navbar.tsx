@@ -21,17 +21,10 @@ export default function Navbar() {
     }, []);
 
     return (
-        <header
-            className={`w-full sticky top-0 z-50 transition-[background-color,box-shadow,border-color,backdrop-filter] duration-500 ease-[cubic-bezier(0.25,0.1,0.25,1)] ${isScrolled
-                    ? "border-b border-foreground/[0.08] bg-background/65 shadow-[0_8px_40px_-12px_rgba(0,0,0,0.14)] ring-1 ring-inset ring-white/15 backdrop-blur-3xl backdrop-saturate-150 dark:bg-background/50 dark:shadow-[0_8px_48px_-12px_rgba(0,0,0,0.55)] dark:ring-white/10 supports-[backdrop-filter]:bg-background/55 dark:supports-[backdrop-filter]:bg-background/40"
-                    : "border-b border-transparent bg-card shadow-none"
-                }`}
-        >
+        <>
             {/* Top Banner Section */}
-            <div
-                className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 transition-[padding] duration-500 ease-[cubic-bezier(0.25,0.1,0.25,1)] ${isScrolled ? "py-3 md:py-4" : "py-6"
-                    }`}
-            >
+            <header className="w-full bg-card">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
                 <div className="flex flex-col md:flex-row items-center justify-between gap-6">
 
                     {/* Left: Logo */}
@@ -88,10 +81,14 @@ export default function Navbar() {
                         </motion.div>
                     </div>
                 </div>
-            </div>
+                </div>
+            </header>
 
             {/* Bottom nav (glass comes from parent header when scrolled) */}
-            <div className="w-full">
+            <div className={`w-full sticky top-0 z-50 transition-[background-color,box-shadow,border-color,backdrop-filter] duration-500 ease-[cubic-bezier(0.25,0.1,0.25,1)] ${isScrolled
+                    ? "border-b border-foreground/[0.08] bg-background/65 shadow-[0_8px_40px_-12px_rgba(0,0,0,0.14)] ring-1 ring-inset ring-white/15 backdrop-blur-3xl backdrop-saturate-150 dark:bg-background/50 dark:shadow-[0_8px_48px_-12px_rgba(0,0,0,0.55)] dark:ring-white/10 supports-[backdrop-filter]:bg-background/55 dark:supports-[backdrop-filter]:bg-background/40"
+                    : "border-b border-transparent bg-card shadow-none"
+                }`}>
                 <nav className="w-full bg-transparent py-0 transition-colors duration-300 ease-out">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="flex items-center justify-center md:justify-between h-14">
@@ -140,6 +137,6 @@ export default function Navbar() {
                     </div>
                 </nav>
             </div>
-        </header>
+        </>
     );
 }
