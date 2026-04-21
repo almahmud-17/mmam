@@ -499,34 +499,32 @@ function LeadershipSection({ fadeIn }: LeadershipSectionProps) {
 type FeaturedTeachersProps = { fadeIn: any; staggerContainer: any };
 
 function FeaturedTeachersSection({ fadeIn, staggerContainer }: FeaturedTeachersProps) {
-  const [teachers, setTeachers] = useState<
-    {
-      id: string;
-      photoUrl: string | null;
-      specialization: string | null;
-      bio: string | null;
-      qualifications: string | null;
-      user: { name: string; email: string };
-    }[]
-  >([]);
-
-  useEffect(() => {
-    const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5001";
-    const load = async () => {
-      try {
-        const res = await fetch(`${API_BASE_URL}/api/teachers/featured`);
-        const data = await res.json();
-        if (data.success) setTeachers(data.data);
-      } catch {
-        // ignore
-      }
-    };
-    load();
-  }, []);
-
-  if (teachers.length === 0) return null;
-
-  const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5001";
+  const teachers = [
+    "নাজিয়া",
+    "তাজনুরুল",
+    "আঃ কাদের",
+    "আয়ুব",
+    "মাসউদ",
+    "আঃ সাত্তার",
+    "ইস্রাফীল",
+    "শাহরিয়ার",
+    "আঃ মান্নান",
+    "ফাহিমা",
+    "শাহাবউদ্দীন",
+    "কাজল",
+    "জহুরুল",
+    "আরমান",
+    "ওমর",
+    "আঃ হাই",
+    "ইব্রাহীম",
+    "শামীমুল",
+    "শিহাব",
+    "হাফিজুর",
+    "আইয়ুব",
+    "ছাইফ উদ্দিন",
+    "এখলাস",
+    "রব্বানী",
+  ];
 
   return (
     <section className="py-24">
@@ -541,51 +539,24 @@ function FeaturedTeachersSection({ fadeIn, staggerContainer }: FeaturedTeachersP
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
           variants={staggerContainer}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-16"
+          className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 mt-16"
         >
-          {teachers.map((teacher) => (
+          {teachers.map((name, index) => (
             <motion.div
-              key={teacher.id}
+              key={name}
               variants={fadeIn}
               whileHover={{ y: -5 }}
-              className="group bg-card border border-foreground/10 rounded-3xl overflow-hidden hover:shadow-xl hover:shadow-brand-purple/10 transition-all duration-300"
+              className="group relative overflow-hidden rounded-2xl border border-white/20 bg-white/10 backdrop-blur-xl p-5 md:p-6 hover:shadow-xl hover:shadow-brand-purple/15 transition-all duration-300"
             >
-              {/* Photo */}
-              <div className="aspect-[4/3] bg-foreground/5 relative overflow-hidden">
-                {teacher.photoUrl ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    src={teacher.photoUrl.startsWith("http") || teacher.photoUrl.startsWith("data:") ? teacher.photoUrl : `${API_BASE_URL}${teacher.photoUrl}`}
-                    alt={teacher.user.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                ) : (
-                  <div className="w-full h-full flex items-center justify-center">
-                    <div className="w-20 h-20 rounded-full bg-gradient-to-tr from-brand-pink to-brand-purple flex items-center justify-center text-3xl font-bold text-white">
-                      {teacher.user.name.charAt(0)}
-                    </div>
-                  </div>
-                )}
-                {/* Gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-              </div>
-
-              {/* Info */}
-              <div className="p-6">
-                <h4 className="text-lg font-bold text-foreground font-heading mb-1">
-                  {teacher.user.name}
+              <div className="pointer-events-none absolute -top-8 -right-8 h-20 w-20 rounded-full bg-brand-pink/20 blur-2xl" />
+              <div className="pointer-events-none absolute -bottom-8 -left-8 h-20 w-20 rounded-full bg-brand-purple/20 blur-2xl" />
+              <div className="relative flex items-center justify-between gap-3">
+                <h4 className="text-sm md:text-base font-bold text-foreground font-bangla leading-snug">
+                  {name}
                 </h4>
-                {teacher.specialization && (
-                  <span className="inline-block px-3 py-1 rounded-lg bg-brand-purple/10 border border-brand-purple/20 text-brand-purple text-xs font-bold uppercase tracking-wider mb-3">
-                    {teacher.specialization}
-                  </span>
-                )}
-                {teacher.qualifications && (
-                  <p className="text-xs text-foreground/40 font-medium mb-2">{teacher.qualifications}</p>
-                )}
-                {teacher.bio && (
-                  <p className="text-sm text-foreground/60 leading-relaxed line-clamp-3">{teacher.bio}</p>
-                )}
+                <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/30 bg-white/20 text-xs font-semibold text-foreground/70">
+                  {index + 1}
+                </span>
               </div>
             </motion.div>
           ))}
